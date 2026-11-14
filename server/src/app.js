@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.get('/api/health', (req, res) => {
     isDemoInstance: process.env.IS_DEMO_INSTANCE === 'true' || true
   });
 });
+
+// Routes
+app.use('/api/auth', authRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
