@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Leaf, LogOut, User, Sparkles } from 'lucide-react';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { Leaf, LogOut, User, Sparkles, Database, ChevronDown } from 'lucide-react';
+import { AuthProvider, useAuth, DEMO_CREDENTIALS } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DonorDashboard from './pages/donor/DonorDashboard';
@@ -9,9 +9,18 @@ import NgoDashboard from './pages/ngo/NgoDashboard';
 import VolunteerDashboard from './pages/volunteer/VolunteerDashboard';
 import ImpactPage from './pages/impact/ImpactPage';
 
-function Header() {
-  const { user, logout } = useAuth();
+function Header({ storageInfo }) {
+  const { user, logout, loginAsDemo } = useAuth();
   const navigate = useNavigate();
+  const [showPersonaMenu, setShowPersonaMenu] = useState(false);
+
+  const handleSwitchPersona = async (key, role) => {
+    setShowPersonaMenu(false);
+    await loginAsDemo(key);
+    if (role === 'donor') navigate('/donor');
+    else if (role === 'ngo') navigate('/ngo');
+    else if (role === 'volunteer') navigate('/volunteer');
+  };
 
   return (
     <header className="border-b border-harvest-border bg-harvest-canvas/90 backdrop-blur-md sticky top-0 z-50">
@@ -30,23 +39,54 @@ function Header() {
           </div>
         </Link>
 
-        <nav className="flex items-center space-x-4 sm:space-x-6 text-xs">
-          <Link to="/" className="font-medium text-harvest-text-dark hover:text-harvest-forest transition-colors">
+        <nav className="flex items-center space-x-3 sm:space-x-5 text-xs">
+          <Link to="/" className="font-medium text-harvest-text-dark hover:text-harvest-forest transition-colors hidden md:inline">
             Overview
           </Link>
           <Link to="/impact" className="font-medium text-harvest-text-dark hover:text-harvest-forest transition-colors">
             Impact Ledger
           </Link>
 
+          {/* Persistent Storage Mode Pill */}
+          <div className="hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-harvest-subtle text-[11px] font-medium text-harvest-text-muted border border-harvest-border">
+            <span className={`w-2 h-2 rounded-full ${storageInfo?.isLiveDb ? 'bg-harvest-forest' : 'bg-harvest-amber'}`} />
+            <span>{storageInfo?.label || 'Persistent Local Demo Store'}</span>
+          </div>
+
+          {/* Logged in Persona & Switcher */}
           {user ? (
-            <div className="flex items-center space-x-3">
-              <Link
-                to={user.role === 'donor' ? '/donor' : user.role === 'ngo' ? '/ngo' : '/volunteer'}
-                className="px-3.5 py-1.5 rounded-lg bg-harvest-subtle text-harvest-forest-dark font-semibold border border-harvest-border hover:bg-harvest-surface transition-all flex items-center space-x-1.5"
-              >
-                <User className="w-3.5 h-3.5 text-harvest-forest" />
-                <span className="capitalize">{user.role} Console</span>
-              </Link>
+            <div className="flex items-center space-x-2">
+              <div className="relative">
+                <button
+                  onClick={() => setShowPersonaMenu(!showPersonaMenu)}
+                  className="px-3 py-1.5 rounded-lg bg-harvest-forest text-harvest-canvas font-semibold hover:bg-harvest-forest-light transition-all flex items-center space-x-1.5 shadow-harvest-sm"
+                >
+                  <User className="w-3.5 h-3.5 text-harvest-lime" />
+                  <span className="capitalize">{user.role} Console</span>
+                  <ChevronDown className="w-3 h-3 text-harvest-canvas/70" />
+                </button>
+
+                {showPersonaMenu && (
+                  <div className="absolute right-0 mt-2 w-64 bg-harvest-surface rounded-xl shadow-harvest-lg border border-harvest-border py-2 z-50 space-y-1">
+                    <div className="px-3 py-1 text-[10px] uppercase font-bold text-harvest-text-muted border-b border-harvest-border mb-1">
+                      Switch Evaluation Role:
+                    </div>
+                    {Object.entries(DEMO_CREDENTIALS).map(([k, c]) => (
+                      <button
+                        key={k}
+                        onClick={() => handleSwitchPersona(k, c.role)}
+                        className="w-full text-left px-3 py-1.5 text-xs text-harvest-text-dark hover:bg-harvest-subtle hover:text-harvest-forest flex items-center justify-between"
+                      >
+                        <span className="font-medium">{c.label}</span>
+                        <span className="text-[10px] uppercase px-1.5 py-0.5 rounded bg-harvest-subtle text-harvest-text-muted">
+                          {c.badge}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <button
                 onClick={() => {
                   logout();
@@ -84,12 +124,21 @@ function DemoBanner() {
 }
 
 export default function App() {
+  const [storageInfo, setStorageInfo] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/health')
+      .then(r => r.json())
+      .then(d => setStorageInfo(d.storage))
+      .catch(() => {});
+  }, []);
+
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen flex flex-col bg-harvest-canvas">
           <DemoBanner />
-          <Header />
+          <Header storageInfo={storageInfo} />
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<LandingPage />} />

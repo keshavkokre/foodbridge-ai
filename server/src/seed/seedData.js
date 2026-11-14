@@ -1,43 +1,47 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import mongoose from 'mongoose';
 import { connectDB, disconnectDB } from '../config/db.js';
-import { User } from '../models/User.js';
-import { DonorProfile } from '../models/DonorProfile.js';
-import { NGOProfile } from '../models/NGOProfile.js';
-import { VolunteerProfile } from '../models/VolunteerProfile.js';
-import { FoodDonation } from '../models/FoodDonation.js';
-import { NGOFoodDemand } from '../models/NGOFoodDemand.js';
-import { Allocation } from '../models/Allocation.js';
-import { PickupAssignment } from '../models/PickupAssignment.js';
-import { HandoverVerification } from '../models/HandoverVerification.js';
+import { dbStore, isMongoConnected } from '../storage/dbAdapter.js';
+import { repo } from '../storage/repository.js';
 import { hashPassword } from '../utils/passwordService.js';
 import { createOtpCredentials } from '../utils/otpSecurity.js';
-import { ROLES, FOOD_CATEGORIES, STORAGE_CONDITIONS, DONATION_STATUS, DEMAND_STATUS, ALLOCATION_STATUS, ASSIGNMENT_STATUS, URGENCY_LEVELS } from '../config/constants.js';
+import {
+  ROLES,
+  FOOD_CATEGORIES,
+  STORAGE_CONDITIONS,
+  DONATION_STATUS,
+  DEMAND_STATUS,
+  ALLOCATION_STATUS,
+  ASSIGNMENT_STATUS,
+  URGENCY_LEVELS
+} from '../config/constants.js';
 
 export async function seedDemoData() {
-  console.log('[SEED] Connecting to MongoDB...');
+  console.log('[SEED] Checking database connectivity...');
   await connectDB();
 
-  console.log('[SEED] Cleaning previous demonstration fixtures (isDemo: true)...');
-  await User.deleteMany({ isDemo: true });
-  await DonorProfile.deleteMany({});
-  await NGOProfile.deleteMany({});
-  await VolunteerProfile.deleteMany({});
-  await FoodDonation.deleteMany({ isDemo: true });
-  await NGOFoodDemand.deleteMany({ isDemo: true });
-  await Allocation.deleteMany({ isDemo: true });
-  await PickupAssignment.deleteMany({ isDemo: true });
-  await HandoverVerification.deleteMany({ isDemo: true });
+  console.log(`[SEED] Storage mode: ${isMongoConnected() ? 'MongoDB Atlas' : 'Local Persistent Demo Store'}`);
+  console.log('[SEED] Resetting previous demonstration fixtures...');
+
+  await dbStore.resetDemoData();
+  await repo.users.deleteMany({});
+  await repo.donorProfiles.deleteMany({});
+  await repo.ngoProfiles.deleteMany({});
+  await repo.volunteerProfiles.deleteMany({});
+  await repo.donations.deleteMany({});
+  await repo.demands.deleteMany({});
+  await repo.allocations.deleteMany({});
+  await repo.assignments.deleteMany({});
+  await repo.handovers.deleteMany({});
 
   const defaultPassword = 'DemoPassword2026!';
   const passwordHash = await hashPassword(defaultPassword);
 
-  console.log('[SEED] Seeding demonstration users...');
+  console.log('[SEED] Seeding demonstration users and profiles...');
 
   // 1. Hotel Donor
-  const donorHotel = await User.create({
+  const donorHotel = await repo.users.create({
     email: 'hotel.donor@foodbridge.demo',
     passwordHash,
     role: ROLES.DONOR,
@@ -54,15 +58,15 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  await DonorProfile.create({
-    userId: donorHotel._id,
+  await repo.donorProfiles.create({
+    userId: donorHotel._id || donorHotel.id,
     orgType: 'hotel',
     fssaiLicenseNumber: 'FSSAI-112233445566',
     pickupInstructions: 'Enter via Loading Dock 3 behind banquet hall; ask for Chef Anand.'
   });
 
   // 2. Supermarket Donor
-  const donorMarket = await User.create({
+  const donorMarket = await repo.users.create({
     email: 'market.donor@foodbridge.demo',
     passwordHash,
     role: ROLES.DONOR,
@@ -79,19 +83,19 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  await DonorProfile.create({
-    userId: donorMarket._id,
+  await repo.donorProfiles.create({
+    userId: donorMarket._id || donorMarket.id,
     orgType: 'supermarket',
     fssaiLicenseNumber: 'FSSAI-998877665544',
-    pickupInstructions: 'Service counter at rear entrance.'
+    pickupInstructions: 'Service counter at rear delivery bay.'
   });
 
-  // 3. NGO 1: Ashraya Children's Home (Proximity: 1.4 km)
-  const ngoAshraya = await User.create({
+  // 3. NGO A: Ashraya Children's Home (Proximity: 1.4 km, Capacity: 70 servings)
+  const ngoAshraya = await repo.users.create({
     email: 'ashraya.shelter@foodbridge.demo',
     passwordHash,
     role: ROLES.NGO,
-    fullName: '[DEMO] Ashraya Children Home',
+    fullName: '[DEMO] Ashraya Children Home (NGO A)',
     phone: '+91 94480 33445',
     address: {
       street: '12 Richmond Crescent',
@@ -102,24 +106,25 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  await NGOProfile.create({
-    userId: ngoAshraya._id,
-    organizationName: '[DEMO] Ashraya Children Home',
+  await repo.ngoProfiles.create({
+    userId: ngoAshraya._id || ngoAshraya.id,
+    organizationName: '[DEMO] Ashraya Children Home (NGO A)',
     registrationNumber: 'REG-KA-2018-8834',
     beneficiaryCount: 45,
-    dailyReceivingCapacity: 75,
+    dailyReceivingCapacity: 70, // Matches exact prompt capacity
     activeCommittedServings: 0,
     coldStorageAvailable: true,
     hotHoldingAvailable: true,
-    reliabilityScore: 0.98
+    reliabilityScore: 0.98,
+    isApprovedByAdmin: true
   });
 
-  // 4. NGO 2: Sneha Care Old Age Shelter (Proximity: 3.2 km)
-  const ngoSneha = await User.create({
+  // 4. NGO B: Sneha Care Senior Home (Proximity: 3.2 km, Capacity: 50 servings)
+  const ngoSneha = await repo.users.create({
     email: 'sneha.care@foodbridge.demo',
     passwordHash,
     role: ROLES.NGO,
-    fullName: '[DEMO] Sneha Care Senior Sanctuary',
+    fullName: '[DEMO] Sneha Care Senior Home (NGO B)',
     phone: '+91 94481 55667',
     address: {
       street: '88 Victoria Layout',
@@ -130,24 +135,25 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  await NGOProfile.create({
-    userId: ngoSneha._id,
-    organizationName: '[DEMO] Sneha Care Senior Sanctuary',
+  await repo.ngoProfiles.create({
+    userId: ngoSneha._id || ngoSneha.id,
+    organizationName: '[DEMO] Sneha Care Senior Home (NGO B)',
     registrationNumber: 'REG-KA-2015-4421',
     beneficiaryCount: 50,
-    dailyReceivingCapacity: 50,
+    dailyReceivingCapacity: 50, // Matches exact prompt capacity
     activeCommittedServings: 0,
     coldStorageAvailable: true,
-    hotHoldingAvailable: false,
-    reliabilityScore: 0.92
+    hotHoldingAvailable: true,
+    reliabilityScore: 0.92,
+    isApprovedByAdmin: true
   });
 
-  // 5. NGO 3: St. Jude Community Kitchen (Proximity: 5.0 km)
-  const ngoStJude = await User.create({
+  // 5. NGO C: St. Jude Community Kitchen (Proximity: 5.0 km, Capacity: 30 servings)
+  const ngoStJude = await repo.users.create({
     email: 'stjude.kitchen@foodbridge.demo',
     passwordHash,
     role: ROLES.NGO,
-    fullName: '[DEMO] St. Jude Community Kitchen',
+    fullName: '[DEMO] St. Jude Community Kitchen (NGO C)',
     phone: '+91 94482 77889',
     address: {
       street: '102 Domlur 2nd Stage',
@@ -158,20 +164,50 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  await NGOProfile.create({
-    userId: ngoStJude._id,
-    organizationName: '[DEMO] St. Jude Community Kitchen',
+  await repo.ngoProfiles.create({
+    userId: ngoStJude._id || ngoStJude.id,
+    organizationName: '[DEMO] St. Jude Community Kitchen (NGO C)',
     registrationNumber: 'REG-KA-2020-9901',
-    beneficiaryCount: 80,
-    dailyReceivingCapacity: 100,
+    beneficiaryCount: 30,
+    dailyReceivingCapacity: 30, // Matches exact prompt capacity
     activeCommittedServings: 0,
     coldStorageAvailable: true,
     hotHoldingAvailable: true,
-    reliabilityScore: 0.95
+    reliabilityScore: 0.90,
+    isApprovedByAdmin: true
   });
 
-  // 6. Volunteer Driver
-  const volunteer = await User.create({
+  // 6. BACKUP NGO D: Mother Teresa Relief Center (Proximity: 6.2 km, Capacity: 50 servings)
+  const ngoBackup = await repo.users.create({
+    email: 'backup.shelter@foodbridge.demo',
+    passwordHash,
+    role: ROLES.NGO,
+    fullName: '[DEMO] Mother Teresa Crisis Center (Backup NGO D)',
+    phone: '+91 94483 11223',
+    address: {
+      street: '45 Halasuru Lake Road',
+      city: 'Bangalore',
+      location: { type: 'Point', coordinates: [77.6300, 12.9850] }
+    },
+    isVerified: true,
+    isDemo: true
+  });
+
+  await repo.ngoProfiles.create({
+    userId: ngoBackup._id || ngoBackup.id,
+    organizationName: '[DEMO] Mother Teresa Crisis Center (Backup NGO D)',
+    registrationNumber: 'REG-KA-2021-3321',
+    beneficiaryCount: 50,
+    dailyReceivingCapacity: 50,
+    activeCommittedServings: 0,
+    coldStorageAvailable: true,
+    hotHoldingAvailable: true,
+    reliabilityScore: 0.95,
+    isApprovedByAdmin: true
+  });
+
+  // 7. Volunteer Driver
+  const volunteer = await repo.users.create({
     email: 'rohan.volunteer@foodbridge.demo',
     passwordHash,
     role: ROLES.VOLUNTEER,
@@ -185,16 +221,16 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  await VolunteerProfile.create({
-    userId: volunteer._id,
+  await repo.volunteerProfiles.create({
+    userId: volunteer._id || volunteer.id,
     vehicleType: 'car',
     maxPayloadKg: 60,
     isAvailable: true,
     completedDeliveriesCount: 14
   });
 
-  // 7. Platform Admin
-  await User.create({
+  // 8. Platform Admin
+  await repo.users.create({
     email: 'admin@foodbridge.demo',
     passwordHash,
     role: ROLES.ADMIN,
@@ -204,59 +240,74 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  console.log('[SEED] Registering active NGO dietary demands...');
-  // Active demand for Ashraya
-  const demandAshraya = await NGOFoodDemand.create({
-    ngoId: ngoAshraya._id,
+  console.log('[SEED] Registering active NGO demands matching prompt requirements...');
+
+  // Demand NGO A: 70 servings
+  await repo.demands.create({
+    ngoId: ngoAshraya._id || ngoAshraya.id,
     requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS],
-    requestedServings: 60,
+    requestedServings: 70,
     fulfilledServings: 0,
-    remainingServings: 60,
+    remainingServings: 70,
     urgencyLevel: URGENCY_LEVELS.HIGH,
-    requiredBefore: new Date(Date.now() + 5 * 3600 * 1000), // in 5 hours
-    notes: 'Dinner requirements for 45 children; warm rice and dal preferred.',
+    requiredBefore: new Date(Date.now() + 5 * 3600 * 1000).toISOString(),
+    notes: 'Breakfast requirement for 45 children.',
     status: DEMAND_STATUS.ACTIVE,
     isDemo: true
   });
 
-  // Active demand for Sneha Care
-  const demandSneha = await NGOFoodDemand.create({
-    ngoId: ngoSneha._id,
-    requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS, FOOD_CATEGORIES.BAKERY_DAIRY],
-    requestedServings: 40,
+  // Demand NGO B: 50 servings
+  await repo.demands.create({
+    ngoId: ngoSneha._id || ngoSneha.id,
+    requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS],
+    requestedServings: 50,
     fulfilledServings: 0,
-    remainingServings: 40,
-    urgencyLevel: URGENCY_LEVELS.STANDARD,
-    requiredBefore: new Date(Date.now() + 6 * 3600 * 1000),
-    notes: 'Elderly residents dinner; low spice meals preferred.',
+    remainingServings: 50,
+    urgencyLevel: URGENCY_LEVELS.HIGH,
+    requiredBefore: new Date(Date.now() + 5 * 3600 * 1000).toISOString(),
+    notes: 'Lunch requirement for senior residents.',
     status: DEMAND_STATUS.ACTIVE,
     isDemo: true
   });
 
-  // Active demand for St. Jude
-  await NGOFoodDemand.create({
-    ngoId: ngoStJude._id,
-    requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS, FOOD_CATEGORIES.RAW_PRODUCE],
+  // Demand NGO C: 30 servings
+  await repo.demands.create({
+    ngoId: ngoStJude._id || ngoStJude.id,
+    requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS],
+    requestedServings: 30,
+    fulfilledServings: 0,
+    remainingServings: 30,
+    urgencyLevel: URGENCY_LEVELS.HIGH,
+    requiredBefore: new Date(Date.now() + 6 * 3600 * 1000).toISOString(),
+    notes: 'Community kitchen dinner supplement.',
+    status: DEMAND_STATUS.ACTIVE,
+    isDemo: true
+  });
+
+  // Demand Backup NGO D: 50 servings (Ready to absorb declined quota!)
+  await repo.demands.create({
+    ngoId: ngoBackup._id || ngoBackup.id,
+    requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS],
     requestedServings: 50,
     fulfilledServings: 0,
     remainingServings: 50,
     urgencyLevel: URGENCY_LEVELS.STANDARD,
-    requiredBefore: new Date(Date.now() + 7 * 3600 * 1000),
-    notes: 'Night shelter feeding program.',
+    requiredBefore: new Date(Date.now() + 7 * 3600 * 1000).toISOString(),
+    notes: 'Emergency night shelter reserve demand.',
     status: DEMAND_STATUS.ACTIVE,
     isDemo: true
   });
 
-  console.log('[SEED] Seeding 1 verified completed rescue for baseline impact metrics...');
-  const pastDonation = await FoodDonation.create({
-    donorId: donorHotel._id,
+  console.log('[SEED] Seeding historical completed rescue for baseline verified metrics...');
+  const pastDonation = await repo.donations.create({
+    donorId: donorHotel._id || donorHotel.id,
     title: '[DEMO] Executive Buffet Rice & Dal Surplus',
     category: FOOD_CATEGORIES.COOKED_MEALS,
     items: [{ name: 'Jeera Rice & Dal Tadka', quantity: 80, unit: 'servings' }],
     totalServings: 80,
     remainingServings: 0,
-    preparationTime: new Date(Date.now() - 24 * 3600 * 1000),
-    safeUseDeadline: new Date(Date.now() - 18 * 3600 * 1000),
+    preparationTime: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
+    safeUseDeadline: new Date(Date.now() - 18 * 3600 * 1000).toISOString(),
     storageCondition: STORAGE_CONDITIONS.HOT_HOLDING,
     pickupAddress: {
       street: '42 MG Road',
@@ -267,62 +318,48 @@ export async function seedDemoData() {
     isDemo: true
   });
 
-  const pastAlloc = await Allocation.create({
-    donationId: pastDonation._id,
-    ngoId: ngoAshraya._id,
-    demandId: demandAshraya._id,
-    allocatedServings: 80,
-    matchScore: 96,
-    scoreBreakdown: { distanceScore: 0.95, urgencyScore: 0.90, capacityScore: 1.0, historyScore: 0.98, distanceKm: 1.4 },
-    recommendationRationale: 'Allocated 80 servings to Ashraya Children Home (1.4 km) based on highest composite match score and verified hot-holding equipment.',
-    status: ALLOCATION_STATUS.ACCEPTED,
-    responseDeadline: new Date(Date.now() - 23 * 3600 * 1000),
-    isDemo: true
-  });
-
-  const pastAssignment = await PickupAssignment.create({
-    allocationId: pastAlloc._id,
-    donationId: pastDonation._id,
-    ngoId: ngoAshraya._id,
-    volunteerId: volunteer._id,
+  const pastAssignment = await repo.assignments.create({
+    allocationId: 'alloc_historical_01',
+    donationId: pastDonation._id || pastDonation.id,
+    ngoId: ngoAshraya._id || ngoAshraya.id,
+    volunteerId: volunteer._id || volunteer.id,
     status: ASSIGNMENT_STATUS.DELIVERED,
     timeline: {
-      claimedAt: new Date(Date.now() - 23 * 3600 * 1000),
-      pickedUpAt: new Date(Date.now() - 22.5 * 3600 * 1000),
-      deliveredAt: new Date(Date.now() - 22 * 3600 * 1000)
+      claimedAt: new Date(Date.now() - 23 * 3600 * 1000).toISOString(),
+      pickedUpAt: new Date(Date.now() - 22.5 * 3600 * 1000).toISOString(),
+      deliveredAt: new Date(Date.now() - 22 * 3600 * 1000).toISOString()
     },
     isDemo: true
   });
 
   const cred1 = createOtpCredentials();
   const cred2 = createOtpCredentials();
-  await HandoverVerification.create({
-    assignmentId: pastAssignment._id,
+  await repo.handovers.create({
+    assignmentId: pastAssignment._id || pastAssignment.id,
     donorOtpHash: cred1.hash,
     donorOtpSalt: cred1.salt,
-    donorConfirmedAt: new Date(Date.now() - 22.5 * 3600 * 1000),
+    donorConfirmedAt: new Date(Date.now() - 22.5 * 3600 * 1000).toISOString(),
     ngoOtpHash: cred2.hash,
     ngoOtpSalt: cred2.salt,
-    ngoConfirmedAt: new Date(Date.now() - 22 * 3600 * 1000),
+    ngoConfirmedAt: new Date(Date.now() - 22 * 3600 * 1000).toISOString(),
     receivedServings: 80,
     storageConditionAtReceipt: 'compliant',
     isDemo: true
   });
 
-  console.log('[SEED] Demonstration seed completed successfully!');
-  console.log('[SEED] Demo Accounts Summary (Password: DemoPassword2026!):');
-  console.log(' - Donor (Hotel):     hotel.donor@foodbridge.demo');
-  console.log(' - Donor (Market):    market.donor@foodbridge.demo');
-  console.log(' - NGO (Children):    ashraya.shelter@foodbridge.demo');
-  console.log(' - NGO (Seniors):     sneha.care@foodbridge.demo');
-  console.log(' - NGO (Kitchen):     stjude.kitchen@foodbridge.demo');
-  console.log(' - Volunteer:         rohan.volunteer@foodbridge.demo');
-  console.log(' - Admin:             admin@foodbridge.demo');
+  console.log('[SEED] Demonstration fixtures successfully seeded!');
+  console.log('[SEED] Accounts (Password: DemoPassword2026!):');
+  console.log(' - Hotel Donor:        hotel.donor@foodbridge.demo');
+  console.log(' - NGO A (Children):   ashraya.shelter@foodbridge.demo   (Demand: 70, Cap: 70)');
+  console.log(' - NGO B (Seniors):    sneha.care@foodbridge.demo        (Demand: 50, Cap: 50)');
+  console.log(' - NGO C (Kitchen):    stjude.kitchen@foodbridge.demo    (Demand: 30, Cap: 30)');
+  console.log(' - Backup NGO D:       backup.shelter@foodbridge.demo    (Demand: 50, Cap: 50)');
+  console.log(' - Volunteer:          rohan.volunteer@foodbridge.demo');
+  console.log(' - Admin:              admin@foodbridge.demo');
 
   await disconnectDB();
 }
 
-// Allow direct CLI invocation: node src/seed/seedData.js
 if (process.argv[1]?.endsWith('seedData.js')) {
   seedDemoData()
     .then(() => process.exit(0))

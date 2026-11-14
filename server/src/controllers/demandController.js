@@ -1,5 +1,5 @@
-import { NGOFoodDemand } from '../models/NGOFoodDemand.js';
-import { DEMAND_STATUS, ROLES } from '../config/constants.js';
+import { repo } from '../storage/repository.js';
+import { DEMAND_STATUS } from '../config/constants.js';
 
 export async function createDemand(req, res, next) {
   try {
@@ -12,21 +12,20 @@ export async function createDemand(req, res, next) {
       isDemo
     } = req.body;
 
-    const ngoId = req.user._id;
+    const ngoId = req.user._id || req.user.id;
 
-    const demand = new NGOFoodDemand({
+    const demand = await repo.demands.create({
       ngoId,
       requestedCategories,
-      requestedServings,
-      remainingServings: requestedServings,
+      requestedServings: Number(requestedServings),
+      fulfilledServings: 0,
+      remainingServings: Number(requestedServings),
       urgencyLevel: urgencyLevel || 'STANDARD',
       requiredBefore: new Date(requiredBefore),
       notes: notes || '',
       status: DEMAND_STATUS.ACTIVE,
       isDemo: Boolean(isDemo || req.user.isDemo)
     });
-
-    await demand.save();
 
     return res.status(201).json({
       message: 'Nutritional food demand registered successfully in Demand-First pool.',
@@ -39,9 +38,8 @@ export async function createDemand(req, res, next) {
 
 export async function getMyDemands(req, res, next) {
   try {
-    const demands = await NGOFoodDemand.find({ ngoId: req.user._id })
-      .sort({ createdAt: -1 });
-
+    const ngoId = req.user._id || req.user.id;
+    const demands = await repo.demands.find({ ngoId });
     return res.json(demands);
   } catch (error) {
     next(error);
@@ -50,12 +48,9 @@ export async function getMyDemands(req, res, next) {
 
 export async function getAllActiveDemands(req, res, next) {
   try {
-    const demands = await NGOFoodDemand.find({
+    const demands = await repo.demands.find({
       status: { $in: [DEMAND_STATUS.ACTIVE, DEMAND_STATUS.PARTIALLY_FULFILLED] }
-    })
-      .sort({ createdAt: -1 })
-      .populate('ngoId', 'fullName address phone');
-
+    });
     return res.json(demands);
   } catch (error) {
     next(error);

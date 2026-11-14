@@ -27,9 +27,16 @@ export const DEMO_CREDENTIALS = {
   ngo_sneha: {
     email: 'sneha.care@foodbridge.demo',
     password: 'DemoPassword2026!',
-    label: 'Sneha Care Senior Shelter (NGO)',
+    label: 'Sneha Care Senior Shelter (NGO B)',
     role: 'ngo',
-    badge: 'NGO'
+    badge: 'NGO B'
+  },
+  ngo_backup: {
+    email: 'backup.shelter@foodbridge.demo',
+    password: 'DemoPassword2026!',
+    label: 'Mother Teresa Center (Backup NGO D)',
+    role: 'ngo',
+    badge: 'Backup NGO'
   },
   volunteer: {
     email: 'rohan.volunteer@foodbridge.demo',

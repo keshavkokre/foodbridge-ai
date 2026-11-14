@@ -1,15 +1,8 @@
-import { FoodDonation } from '../models/FoodDonation.js';
-import { NGOFoodDemand } from '../models/NGOFoodDemand.js';
-import { NGOProfile } from '../models/NGOProfile.js';
-import { Allocation } from '../models/Allocation.js';
-import { User } from '../models/User.js';
+import { repo } from '../storage/repository.js';
 import { parseUnstructuredDonation, generateAllocationRationale } from '../engine/geminiExplainer.js';
 import { computeMultiNgoAllocations } from '../engine/multiAllocator.js';
 import { DONATION_STATUS, ALLOCATION_STATUS, DEMAND_STATUS, ROLES } from '../config/constants.js';
 
-/**
- * Handles creation of a food donation, runs allocation engine, and creates allocation proposals.
- */
 export async function createDonation(req, res, next) {
   try {
     const {
@@ -26,27 +19,27 @@ export async function createDonation(req, res, next) {
       isDemo
     } = req.body;
 
-    const donorId = req.user._id;
+    const donorId = req.user._id || req.user.id;
 
-    // Build pickup coordinates from address or user profile
     const coords = pickupAddress?.location?.coordinates ||
+      pickupAddress?.coordinates ||
       req.user.address?.location?.coordinates ||
       [77.5946, 12.9716];
 
-    const donation = new FoodDonation({
+    const donation = await repo.donations.create({
       donorId,
       title,
       category,
       items: items && items.length > 0 ? items : [{ name: title, quantity: totalServings, unit: 'servings' }],
-      totalServings,
-      remainingServings: totalServings,
+      totalServings: Number(totalServings),
+      remainingServings: Number(totalServings),
       preparationTime: new Date(preparationTime),
       safeUseDeadline: new Date(safeUseDeadline),
       storageCondition,
       allergenAlerts: allergenAlerts || [],
       packagingDescription: packagingDescription || 'Food-grade sealed containers',
       pickupAddress: {
-        street: pickupAddress?.street || req.user.address?.street || '',
+        street: pickupAddress?.street || req.user.address?.street || 'Central Donor Bay',
         city: pickupAddress?.city || req.user.address?.city || 'Bangalore',
         location: {
           type: 'Point',
@@ -58,9 +51,7 @@ export async function createDonation(req, res, next) {
       isDemo: Boolean(isDemo || req.user.isDemo)
     });
 
-    await donation.save();
-
-    // Trigger allocation matching against active NGO demands
+    // Run Intelligent Allocation Engine
     const matchingResult = await runAllocationForDonation(donation);
 
     return res.status(201).json({
@@ -73,39 +64,47 @@ export async function createDonation(req, res, next) {
   }
 }
 
-/**
- * Runs matching engine for a donation batch and persists proposed allocations.
- */
-export async function runAllocationForDonation(donation) {
-  // Query active demands that match criteria
-  const activeDemands = await NGOFoodDemand.find({
-    status: { $in: [DEMAND_STATUS.ACTIVE, DEMAND_STATUS.PARTIALLY_FULFILLED] },
-    remainingServings: { $gte: 5 }
-  }).populate('ngoId', 'fullName email address');
+export async function runAllocationForDonation(donation, excludedNgoIds = []) {
+  const donationId = donation._id || donation.id;
 
-  // Load NGO profiles
-  const ngoIds = activeDemands.map(d => d.ngoId?._id || d.ngoId);
-  const profiles = await NGOProfile.find({ userId: { $in: ngoIds } });
-  const profilesMap = new Map();
-  profiles.forEach(p => {
-    profilesMap.set(p.userId.toString(), p);
+  // Retrieve active NGO demands
+  const allDemands = await repo.demands.find({
+    status: { $in: [DEMAND_STATUS.ACTIVE, DEMAND_STATUS.PARTIALLY_FULFILLED] }
   });
 
-  // Execute Bounded Multi-NGO Allocator
+  // Filter demands with remaining need and not in excluded list
+  const activeDemands = allDemands.filter(d => {
+    const ngoIdStr = (d.ngoId?._id || d.ngoId?.id || d.ngoId).toString();
+    const hasRemaining = (d.remainingServings || 0) >= 5;
+    const notExcluded = !excludedNgoIds.map(x => x.toString()).includes(ngoIdStr);
+    return hasRemaining && notExcluded;
+  });
+
+  // Load NGO profiles
+  const allProfiles = await repo.ngoProfiles.find({});
+  const profilesMap = new Map();
+  allProfiles.forEach(p => {
+    const uId = (p.userId?._id || p.userId?.id || p.userId).toString();
+    profilesMap.set(uId, p);
+  });
+
+  // Run Bounded Multi-NGO Allocator
   const allocationOutput = computeMultiNgoAllocations(donation, activeDemands, profilesMap);
 
   const createdAllocations = [];
 
   for (const alloc of allocationOutput.allocations) {
-    const profile = profilesMap.get(alloc.ngoId.toString());
+    const ngoId = (alloc.ngoId?._id || alloc.ngoId?.id || alloc.ngoId).toString();
+    const demandId = (alloc.demandId?._id || alloc.demandId?.id || alloc.demandId).toString();
+    const profile = profilesMap.get(ngoId);
 
-    // Generate explainable rationale (Gemini or deterministic template)
+    // Explainable rationale
     const rationale = await generateAllocationRationale(alloc, donation, profile || {});
 
-    const newAlloc = new Allocation({
-      donationId: donation._id,
-      ngoId: alloc.ngoId,
-      demandId: alloc.demandId,
+    const newAlloc = await repo.allocations.create({
+      donationId,
+      ngoId,
+      demandId,
       allocatedServings: alloc.allocatedServings,
       matchScore: alloc.matchScore,
       scoreBreakdown: alloc.scoreBreakdown,
@@ -115,25 +114,24 @@ export async function runAllocationForDonation(donation) {
       isDemo: donation.isDemo
     });
 
-    await newAlloc.save();
     createdAllocations.push(newAlloc);
 
-    // Update NGO profile committed load to prevent over-allocation during acceptance window
+    // Update NGO committed capacity
     if (profile) {
-      await NGOProfile.updateOne(
-        { _id: profile._id },
+      await repo.ngoProfiles.updateOne(
+        { userId: profile.userId },
         { $inc: { activeCommittedServings: alloc.allocatedServings } }
       );
     }
   }
 
-  // Update donation remainingServings and status
+  // Update donation remaining servings and status
   const finalStatus = allocationOutput.isFullyAllocated
     ? DONATION_STATUS.ALLOCATED
     : (allocationOutput.totalAllocated > 0 ? DONATION_STATUS.PARTIALLY_ALLOCATED : DONATION_STATUS.SUBMITTED);
 
-  await FoodDonation.updateOne(
-    { _id: donation._id },
+  await repo.donations.updateOne(
+    { _id: donationId },
     {
       $set: {
         remainingServings: allocationOutput.unallocatedServings,
@@ -150,9 +148,6 @@ export async function runAllocationForDonation(donation) {
   };
 }
 
-/**
- * Parses raw text input using Gemini or deterministic fallback parser.
- */
 export async function extractDetailsFromText(req, res, next) {
   try {
     const { text } = req.body;
@@ -167,40 +162,29 @@ export async function extractDetailsFromText(req, res, next) {
   }
 }
 
-/**
- * Lists donations for the authenticated user or all donations for admin.
- */
 export async function getDonations(req, res, next) {
   try {
     const filter = {};
     if (req.user.role === ROLES.DONOR) {
-      filter.donorId = req.user._id;
+      filter.donorId = req.user._id || req.user.id;
     }
 
-    const donations = await FoodDonation.find(filter)
-      .sort({ createdAt: -1 })
-      .populate('donorId', 'fullName email address');
-
+    const donations = await repo.donations.find(filter);
     return res.json(donations);
   } catch (error) {
     next(error);
   }
 }
 
-/**
- * Gets detailed record of a single donation including its allocations.
- */
 export async function getDonationById(req, res, next) {
   try {
     const { id } = req.params;
-    const donation = await FoodDonation.findById(id).populate('donorId', 'fullName phone email address');
+    const donation = await repo.donations.findById(id);
     if (!donation) {
       return res.status(404).json({ error: 'Donation not found.' });
     }
 
-    const allocations = await Allocation.find({ donationId: id })
-      .populate('ngoId', 'fullName address phone')
-      .populate('demandId');
+    const allocations = await repo.allocations.find({ donationId: id });
 
     return res.json({
       donation,

@@ -1,5 +1,5 @@
 import { verifyToken } from '../utils/tokenService.js';
-import { User } from '../models/User.js';
+import { repo } from '../storage/repository.js';
 
 export async function authGuard(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -14,7 +14,7 @@ export async function authGuard(req, res, next) {
   }
 
   try {
-    const user = await User.findById(decoded.userId).select('-passwordHash');
+    const user = await repo.users.findById(decoded.userId);
     if (!user) {
       return res.status(401).json({ error: 'User record not found.' });
     }

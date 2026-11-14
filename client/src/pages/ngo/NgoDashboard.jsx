@@ -112,6 +112,9 @@ export default function NgoDashboard() {
         body: JSON.stringify({ reason: reason || 'Declined by NGO supervisor' })
       });
       if (res.ok) {
+        const data = await res.json();
+        const reallocOrg = data.reallocationResult?.allocations?.[0]?.organizationName || 'Mother Teresa Center (Backup NGO D)';
+        alert(`Allocation declined.\n\nDynamic Reallocation Triggered:\nReleased ${data.restoredServings} servings and immediately reallocated to: ${reallocOrg}!`);
         fetchData();
       }
     } catch (err) {
