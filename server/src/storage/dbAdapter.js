@@ -59,6 +59,26 @@ export function isMongoConnected() {
   return mongoose.connection.readyState === 1;
 }
 
+export function getDatabaseHealth() {
+  const readyState = mongoose.connection.readyState;
+  const stateLabels = {
+    0: 'disconnected',
+    1: 'connected',
+    2: 'connecting',
+    3: 'disconnecting'
+  };
+  const isConnected = readyState === 1;
+
+  return {
+    status: isConnected ? 'healthy' : (readyState === 2 ? 'connecting' : 'disconnected'),
+    connected: isConnected,
+    state: stateLabels[readyState] || 'unknown',
+    storageMode: isConnected ? 'MONGODB_ATLAS' : 'LOCAL_PERSISTENT_DEMO_STORE',
+    host: isConnected ? mongoose.connection.host : null,
+    databaseName: isConnected ? mongoose.connection.name : null
+  };
+}
+
 export function getStorageMode() {
   if (isMongoConnected()) {
     return {

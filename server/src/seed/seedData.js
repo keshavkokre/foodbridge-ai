@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import '../config/env.js';
 
 import { connectDB, disconnectDB } from '../config/db.js';
 import { dbStore, isMongoConnected } from '../storage/dbAdapter.js';
@@ -273,7 +272,7 @@ export async function seedDemoData() {
   console.log('[SEED] Registering active NGO demands matching prompt requirements...');
 
   // Demand NGO A: 70 servings
-  await repo.demands.create({
+  const demandAshraya = await repo.demands.create({
     ngoId: ngoAshraya._id || ngoAshraya.id,
     requestedCategories: [FOOD_CATEGORIES.COOKED_MEALS],
     requestedServings: 70,
@@ -348,8 +347,20 @@ export async function seedDemoData() {
     isDemo: true
   });
 
+  const pastAlloc = await repo.allocations.create({
+    donationId: pastDonation._id || pastDonation.id,
+    ngoId: ngoAshraya._id || ngoAshraya.id,
+    demandId: demandAshraya._id || demandAshraya.id,
+    allocatedServings: 80,
+    matchScore: 96,
+    recommendationRationale: 'Historical verified baseline rescue to Ashraya Children Home (1.4 km).',
+    responseDeadline: new Date(Date.now() - 22 * 3600 * 1000).toISOString(),
+    status: ALLOCATION_STATUS.COMPLETED,
+    isDemo: true
+  });
+
   const pastAssignment = await repo.assignments.create({
-    allocationId: 'alloc_historical_01',
+    allocationId: pastAlloc._id || pastAlloc.id,
     donationId: pastDonation._id || pastDonation.id,
     ngoId: ngoAshraya._id || ngoAshraya.id,
     volunteerId: volunteer._id || volunteer.id,

@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
+import './config/env.js';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
@@ -14,7 +12,7 @@ import allocationRoutes from './routes/allocationRoutes.js';
 import assignmentRoutes from './routes/assignmentRoutes.js';
 import impactRoutes from './routes/impactRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
-import { getStorageMode } from './storage/dbAdapter.js';
+import { getStorageMode, getDatabaseHealth } from './storage/dbAdapter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,6 +42,7 @@ app.get('/api/health', (req, res) => {
     system: 'FoodBridge AI Core Engine',
     version: '1.0.0',
     theme: 'Harvest Signal',
+    database: getDatabaseHealth(),
     storage: getStorageMode(),
     timestamp: new Date().toISOString(),
     isDemoInstance: process.env.IS_DEMO_INSTANCE === 'true' || true
