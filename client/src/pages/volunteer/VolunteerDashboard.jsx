@@ -12,6 +12,7 @@ import {
   Sparkles,
   Navigation
 } from 'lucide-react';
+import RescueRouteMap from '../../components/maps/RescueRouteMap';
 
 export default function VolunteerDashboard() {
   const { user, token } = useAuth();
@@ -189,6 +190,23 @@ export default function VolunteerDashboard() {
               Status: {activeRun.status.replace(/_/g, ' ')}
             </span>
           </div>
+
+          {/* Interactive Rescue Route Map */}
+          <RescueRouteMap
+            donorLocation={{
+              name: activeRun.donationId?.title || 'Food Donor Pickup',
+              address: activeRun.pickupAddress?.street ? `${activeRun.pickupAddress.street}, ${activeRun.pickupAddress.city || 'Bangalore'}` : 'Donor Loading Dock',
+              coordinates: activeRun.pickupAddress?.location?.coordinates || [77.6412, 12.9784]
+            }}
+            ngoLocation={{
+              name: activeRun.ngoId?.fullName || 'Recipient NGO Facility',
+              address: activeRun.dropoffAddress?.street ? `${activeRun.dropoffAddress.street}, ${activeRun.dropoffAddress.city || 'Bangalore'}` : 'Shelter Facility',
+              coordinates: activeRun.dropoffAddress?.location?.coordinates || [77.6050, 12.9750]
+            }}
+            distanceKm={activeRun.estimatedDistanceKm || 3.8}
+            transitMinutes={activeRun.estimatedTransitMinutes || 14}
+            height="260px"
+          />
 
           {/* Route Milestones */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">

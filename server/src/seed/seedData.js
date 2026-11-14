@@ -206,6 +206,36 @@ export async function seedDemoData() {
     isApprovedByAdmin: true
   });
 
+  // 6b. Pending NGO: Karuna Care Foundation (Awaiting Admin Verification)
+  const ngoPending = await repo.users.create({
+    email: 'karuna.care@foodbridge.demo',
+    passwordHash,
+    role: ROLES.NGO,
+    fullName: '[DEMO] Karuna Care Foundation (Pending Approval)',
+    phone: '+91 94480 77889',
+    address: {
+      street: '45 Ulsoor Lake Road',
+      city: 'Bangalore',
+      location: { type: 'Point', coordinates: [77.6200, 12.9800] }
+    },
+    isVerified: false,
+    isDemo: true
+  });
+
+  await repo.ngoProfiles.create({
+    userId: ngoPending._id || ngoPending.id,
+    organizationName: '[DEMO] Karuna Care Foundation (Pending Approval)',
+    registrationNumber: 'REG-KA-2024-9912',
+    beneficiaryCount: 40,
+    dailyReceivingCapacity: 40,
+    activeCommittedServings: 0,
+    coldStorageAvailable: false,
+    hotHoldingAvailable: false,
+    reliabilityScore: 0.90,
+    isApprovedByAdmin: false,
+    verificationNotes: 'Pending compliance review of 80G tax exemption certificate and kitchen safety report.'
+  });
+
   // 7. Volunteer Driver
   const volunteer = await repo.users.create({
     email: 'rohan.volunteer@foodbridge.demo',

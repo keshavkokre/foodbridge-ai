@@ -8,6 +8,7 @@ import DonorDashboard from './pages/donor/DonorDashboard';
 import NgoDashboard from './pages/ngo/NgoDashboard';
 import VolunteerDashboard from './pages/volunteer/VolunteerDashboard';
 import ImpactPage from './pages/impact/ImpactPage';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function Header({ storageInfo }) {
   const { user, logout, loginAsDemo } = useAuth();
@@ -20,6 +21,7 @@ function Header({ storageInfo }) {
     if (role === 'donor') navigate('/donor');
     else if (role === 'ngo') navigate('/ngo');
     else if (role === 'volunteer') navigate('/volunteer');
+    else if (role === 'admin') navigate('/admin');
   };
 
   return (
@@ -46,6 +48,11 @@ function Header({ storageInfo }) {
           <Link to="/impact" className="font-medium text-harvest-text-dark hover:text-harvest-forest transition-colors">
             Impact Ledger
           </Link>
+          {user?.role === 'admin' && (
+            <Link to="/admin" className="font-semibold text-harvest-forest hover:text-harvest-forest-dark transition-colors">
+              Compliance Admin
+            </Link>
+          )}
 
           {/* Persistent Storage Mode Pill */}
           <div className="hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-harvest-subtle text-[11px] font-medium text-harvest-text-muted border border-harvest-border">
@@ -147,6 +154,7 @@ export default function App() {
               <Route path="/ngo" element={<NgoDashboard />} />
               <Route path="/volunteer" element={<VolunteerDashboard />} />
               <Route path="/impact" element={<ImpactPage />} />
+              <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
           </main>
         </div>

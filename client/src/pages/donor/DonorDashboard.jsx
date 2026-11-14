@@ -27,6 +27,7 @@ export default function DonorDashboard() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('cooked_meals');
   const [totalServings, setTotalServings] = useState(60);
+  const [measuredWeightKg, setMeasuredWeightKg] = useState(24);
   const [prepTime, setPrepTime] = useState(new Date().toISOString().slice(0, 16));
   const [safeUseDeadline, setSafeUseDeadline] = useState(
     new Date(Date.now() + 4 * 3600 * 1000).toISOString().slice(0, 16)
@@ -93,6 +94,7 @@ export default function DonorDashboard() {
           title,
           category,
           totalServings: Number(totalServings),
+          totalWeightKg: measuredWeightKg ? Number(measuredWeightKg) : undefined,
           preparationTime: new Date(prepTime),
           safeUseDeadline: new Date(safeUseDeadline),
           storageCondition,
@@ -303,7 +305,7 @@ export default function DonorDashboard() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block font-semibold text-harvest-forest-dark mb-1">Food Category</label>
                   <select
@@ -312,20 +314,33 @@ export default function DonorDashboard() {
                     className="w-full px-3 py-2 rounded-xl border border-harvest-border bg-harvest-canvas focus:outline-none focus:ring-1 focus:ring-harvest-forest"
                   >
                     <option value="cooked_meals">Cooked / Prepared Meals</option>
-                    <option value="raw_produce">Raw Produce (Fruits & Veggies)</option>
-                    <option value="packaged_groceries">Packaged Dry Groceries</option>
-                    <option value="bakery_dairy">Bakery & Dairy Items</option>
+                    <option value="raw_produce">Raw Produce (Veggies)</option>
+                    <option value="packaged_groceries">Packaged Groceries</option>
+                    <option value="bakery_dairy">Bakery & Dairy</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-harvest-forest-dark mb-1">Total Available Servings</label>
+                  <label className="block font-semibold text-harvest-forest-dark mb-1">Total Servings</label>
                   <input
                     type="number"
                     min="1"
                     required
                     value={totalServings}
                     onChange={(e) => setTotalServings(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-harvest-border bg-harvest-canvas focus:outline-none focus:ring-1 focus:ring-harvest-forest"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-harvest-forest-dark mb-1">Weight (kg) <span className="font-normal text-harvest-text-muted">(Opt)</span></label>
+                  <input
+                    type="number"
+                    min="1"
+                    step="0.5"
+                    value={measuredWeightKg}
+                    onChange={(e) => setMeasuredWeightKg(e.target.value)}
+                    placeholder="e.g. 24"
                     className="w-full px-3 py-2 rounded-xl border border-harvest-border bg-harvest-canvas focus:outline-none focus:ring-1 focus:ring-harvest-forest"
                   />
                 </div>

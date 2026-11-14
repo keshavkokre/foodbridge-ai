@@ -3,7 +3,7 @@
 [![Event](https://img.shields.io/badge/TECH%20EMBED-2026-174C35?style=for-the-badge)](https://github.com/keshavkokre/foodbridge-ai)
 [![Theme](https://img.shields.io/badge/Theme-Smart%20AI%20Solutions-B9E76A?style=for-the-badge&labelColor=0B2118)](https://github.com/keshavkokre/foodbridge-ai)
 [![Stack](https://img.shields.io/badge/Stack-React%2019%20%7C%20Node%2024%20%7C%20MongoDB%20%7C%20Gemini-F6F7F1?style=for-the-badge&labelColor=174C35)](https://github.com/keshavkokre/foodbridge-ai)
-[![Tests](https://img.shields.io/badge/Tests-19%20Passing%20(Vitest)-236548?style=for-the-badge)](https://github.com/keshavkokre/foodbridge-ai)
+[![Tests](https://img.shields.io/badge/Tests-37%20Passing%20(Vitest)-236548?style=for-the-badge)](https://github.com/keshavkokre/foodbridge-ai)
 
 > An intelligent, demand-first surplus food rescue and redistribution system engineered for **TECH EMBED 2026**. FoodBridge AI moves beyond passive donation listing boards by calculating safe-use windows, evaluating physical NGO receiving capacity, and automatically portioning large commercial surplus batches across multiple nearby verified shelters.
 
@@ -117,7 +117,7 @@ npm run seed
 ```bash
 npm test
 ```
-*Executes all 19 unit, invariant, security, and food safety tests via Vitest.*
+*Executes all 37 unit, invariant, security, admin compliance, and end-to-end workflow tests across 7 test suites via Vitest.*
 
 ### 5. Launch Full-Stack Application
 ```bash

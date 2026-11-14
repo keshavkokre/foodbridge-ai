@@ -47,6 +47,10 @@ const ngoProfileSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  verificationNotes: {
+    type: String,
+    default: ''
+  },
   reliabilityScore: {
     type: Number,
     default: 1.0,

@@ -30,6 +30,10 @@ export const repo = {
       }
       return dbStore.collection('users').insert(doc);
     },
+    async updateOne(filter, update) {
+      if (isMongoConnected()) return User.updateOne(filter, update);
+      return dbStore.collection('users').findOneAndUpdate(filter, update);
+    },
     async count(filter = {}) {
       if (isMongoConnected()) return User.countDocuments(filter);
       return dbStore.collection('users').countDocuments(filter);

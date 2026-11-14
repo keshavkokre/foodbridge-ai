@@ -62,6 +62,7 @@ export default function AuthPage() {
     if (userRole === 'donor') navigate('/donor');
     else if (userRole === 'ngo') navigate('/ngo');
     else if (userRole === 'volunteer') navigate('/volunteer');
+    else if (userRole === 'admin') navigate('/admin');
     else navigate('/donor');
   };
 

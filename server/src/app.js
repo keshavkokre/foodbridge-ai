@@ -10,6 +10,7 @@ import demandRoutes from './routes/demandRoutes.js';
 import allocationRoutes from './routes/allocationRoutes.js';
 import assignmentRoutes from './routes/assignmentRoutes.js';
 import impactRoutes from './routes/impactRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 import { getStorageMode } from './storage/dbAdapter.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -53,6 +54,7 @@ app.use('/api/demands', demandRoutes);
 app.use('/api/allocations', allocationRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/impact', impactRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Single Service Deployment: Serve built React frontend if client/dist exists
 if (fs.existsSync(CLIENT_DIST)) {
