@@ -154,8 +154,29 @@ FoodBridge AI distinguishes between **100% verified hard metrics** and **modeled
 
 ---
 
-## 8. License & Attribution
+## 8. Free-Tier Cloud Deployment Guide (Render + MongoDB Atlas)
+
+### Single-Service Render Web Deployment (API + React SPA)
+1. In the [Render Dashboard](https://dashboard.render.com), create a new **Web Service** connected to `keshavkokre/foodbridge-ai`.
+2. Configure build & runtime:
+   - **Runtime:** `Node`
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command:** `npm start`
+3. Configure Environment Variables in Render:
+   - `NODE_ENV=production`
+   - `PORT=5000`
+   - `MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.example.mongodb.net/foodbridge?retryWrites=true&w=majority` (optional; falls back to persistent storage if omitted)
+   - `JWT_SECRET=your_secure_64_char_random_secret`
+   - `GEMINI_API_KEY=your_gemini_key` (optional; built-in heuristic fallback active)
+   - `GEMINI_MODEL=gemini-2.5-flash`
+   - `IS_DEMO_INSTANCE=true`
+4. Deploy! The single Express service automatically hosts both the backend REST APIs and the built production client on the same port with zero CORS friction.
+
+---
+
+## 9. License & Attribution
 
 Developed for **TECH EMBED 2026** under the **Smart AI Solutions** theme.  
 Authored by the FoodBridge AI Engineering Team.  
+Distributed under the **MIT License**.
 Distributed under the **MIT License**.
