@@ -91,39 +91,39 @@ export async function runAllocationForDonation(donation, excludedNgoIds = []) {
   // Run Bounded Multi-NGO Allocator
   const allocationOutput = computeMultiNgoAllocations(donation, activeDemands, profilesMap);
 
-  const createdAllocations = [];
+  const createdAllocations = await Promise.all(
+    allocationOutput.allocations.map(async (alloc) => {
+      const ngoId = (alloc.ngoId?._id || alloc.ngoId?.id || alloc.ngoId).toString();
+      const demandId = (alloc.demandId?._id || alloc.demandId?.id || alloc.demandId).toString();
+      const profile = profilesMap.get(ngoId);
 
-  for (const alloc of allocationOutput.allocations) {
-    const ngoId = (alloc.ngoId?._id || alloc.ngoId?.id || alloc.ngoId).toString();
-    const demandId = (alloc.demandId?._id || alloc.demandId?.id || alloc.demandId).toString();
-    const profile = profilesMap.get(ngoId);
+      // Explainable rationale
+      const rationale = await generateAllocationRationale(alloc, donation, profile || {});
 
-    // Explainable rationale
-    const rationale = await generateAllocationRationale(alloc, donation, profile || {});
+      const newAlloc = await repo.allocations.create({
+        donationId,
+        ngoId,
+        demandId,
+        allocatedServings: alloc.allocatedServings,
+        matchScore: alloc.matchScore,
+        scoreBreakdown: alloc.scoreBreakdown,
+        recommendationRationale: rationale,
+        responseDeadline: alloc.responseDeadline,
+        status: ALLOCATION_STATUS.PROPOSED,
+        isDemo: donation.isDemo
+      });
 
-    const newAlloc = await repo.allocations.create({
-      donationId,
-      ngoId,
-      demandId,
-      allocatedServings: alloc.allocatedServings,
-      matchScore: alloc.matchScore,
-      scoreBreakdown: alloc.scoreBreakdown,
-      recommendationRationale: rationale,
-      responseDeadline: alloc.responseDeadline,
-      status: ALLOCATION_STATUS.PROPOSED,
-      isDemo: donation.isDemo
-    });
+      // Update NGO committed capacity
+      if (profile) {
+        await repo.ngoProfiles.updateOne(
+          { userId: profile.userId },
+          { $inc: { activeCommittedServings: alloc.allocatedServings } }
+        );
+      }
 
-    createdAllocations.push(newAlloc);
-
-    // Update NGO committed capacity
-    if (profile) {
-      await repo.ngoProfiles.updateOne(
-        { userId: profile.userId },
-        { $inc: { activeCommittedServings: alloc.allocatedServings } }
-      );
-    }
-  }
+      return newAlloc;
+    })
+  );
 
   // Update donation remaining servings and status
   const finalStatus = allocationOutput.isFullyAllocated

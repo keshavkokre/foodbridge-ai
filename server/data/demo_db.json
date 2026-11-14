@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "hotel.donor@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "donor",
       "fullName": "[DEMO] Grand Palace Hotel & Banquets",
       "phone": "+91 98450 11223",
@@ -21,13 +21,13 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "3e62538f9f85d7de5b9d3e17",
-      "createdAt": "2026-11-14T08:31:00.371Z",
-      "updatedAt": "2026-11-14T08:31:00.374Z"
+      "_id": "6c6d4fc7d52ed7f8bda626b0",
+      "createdAt": "2026-11-14T08:38:35.621Z",
+      "updatedAt": "2026-11-14T08:38:35.624Z"
     },
     {
       "email": "market.donor@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "donor",
       "fullName": "[DEMO] FreshHarvest Organics Market",
       "phone": "+91 98451 99887",
@@ -46,13 +46,13 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "53ad51d28af17c9b96d864b3",
-      "createdAt": "2026-11-14T08:31:00.377Z",
-      "updatedAt": "2026-11-14T08:31:00.377Z"
+      "_id": "0d6f6beb7c16801223c07170",
+      "createdAt": "2026-11-14T08:38:35.627Z",
+      "updatedAt": "2026-11-14T08:38:35.627Z"
     },
     {
       "email": "ashraya.shelter@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "ngo",
       "fullName": "[DEMO] Ashraya Children Home (NGO A)",
       "phone": "+91 94480 33445",
@@ -69,13 +69,13 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "e2c412b16c2f4959f8f4fb22",
-      "createdAt": "2026-11-14T08:31:00.380Z",
-      "updatedAt": "2026-11-14T08:31:00.380Z"
+      "_id": "142de6c1304e5a743ad5204c",
+      "createdAt": "2026-11-14T08:38:35.631Z",
+      "updatedAt": "2026-11-14T08:38:35.631Z"
     },
     {
       "email": "sneha.care@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "ngo",
       "fullName": "[DEMO] Sneha Care Senior Home (NGO B)",
       "phone": "+91 94481 55667",
@@ -92,13 +92,13 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "acf23b95e5f663ab9a15dc70",
-      "createdAt": "2026-11-14T08:31:00.384Z",
-      "updatedAt": "2026-11-14T08:31:00.384Z"
+      "_id": "22e112727ced25aa8cff06e7",
+      "createdAt": "2026-11-14T08:38:35.634Z",
+      "updatedAt": "2026-11-14T08:38:35.634Z"
     },
     {
       "email": "stjude.kitchen@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "ngo",
       "fullName": "[DEMO] St. Jude Community Kitchen (NGO C)",
       "phone": "+91 94482 77889",
@@ -115,13 +115,13 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "51e57e7194697eaf2cd11883",
-      "createdAt": "2026-11-14T08:31:00.387Z",
-      "updatedAt": "2026-11-14T08:31:00.387Z"
+      "_id": "c064129be2fa881c7d775b62",
+      "createdAt": "2026-11-14T08:38:35.636Z",
+      "updatedAt": "2026-11-14T08:38:35.637Z"
     },
     {
       "email": "backup.shelter@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "ngo",
       "fullName": "[DEMO] Mother Teresa Crisis Center (Backup NGO D)",
       "phone": "+91 94483 11223",
@@ -138,13 +138,13 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "9f0c07a6b9b8ae44817ce824",
-      "createdAt": "2026-11-14T08:31:00.390Z",
-      "updatedAt": "2026-11-14T08:31:00.390Z"
+      "_id": "4a7bbac757a396c62b34f6d8",
+      "createdAt": "2026-11-14T08:38:35.639Z",
+      "updatedAt": "2026-11-14T08:38:35.639Z"
     },
     {
       "email": "karuna.care@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "ngo",
       "fullName": "[DEMO] Karuna Care Foundation (Pending Approval)",
       "phone": "+91 94480 77889",
@@ -161,13 +161,13 @@
       },
       "isVerified": false,
       "isDemo": true,
-      "_id": "9aa25b2aa7107d4e3682917a",
-      "createdAt": "2026-11-14T08:31:00.393Z",
-      "updatedAt": "2026-11-14T08:31:00.393Z"
+      "_id": "e68fae5f5fd7ee4390b56903",
+      "createdAt": "2026-11-14T08:38:35.642Z",
+      "updatedAt": "2026-11-14T08:38:35.642Z"
     },
     {
       "email": "rohan.volunteer@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "volunteer",
       "fullName": "Rohan Sharma (Volunteer Driver)",
       "phone": "+91 97400 66778",
@@ -183,48 +183,48 @@
       },
       "isVerified": true,
       "isDemo": true,
-      "_id": "4635215c3fb0c7c5a75e7d41",
-      "createdAt": "2026-11-14T08:31:00.396Z",
-      "updatedAt": "2026-11-14T08:31:00.396Z"
+      "_id": "ab42521acc4c7919bae8537d",
+      "createdAt": "2026-11-14T08:38:35.644Z",
+      "updatedAt": "2026-11-14T08:38:35.644Z"
     },
     {
       "email": "admin@foodbridge.demo",
-      "passwordHash": "$2a$10$/EAN1Ib2Mnv2W589LkNCzeTJ4PzZc5ulC1YFmjiPKjsvSAACSdtRi",
+      "passwordHash": "$2a$10$X9jwVSV2l1jA/PP8P5ku8OaL/eXhbePo.y2mcrqt/y66ePkVA.2e6",
       "role": "admin",
       "fullName": "Ananya Deshmukh (Compliance Officer)",
       "phone": "+91 98000 11111",
       "isVerified": true,
       "isDemo": true,
-      "_id": "2b1283d4e0af8de8417d2cc5",
-      "createdAt": "2026-11-14T08:31:00.400Z",
-      "updatedAt": "2026-11-14T08:31:00.400Z"
+      "_id": "e3e0a79e82d553b55067e1f5",
+      "createdAt": "2026-11-14T08:38:35.649Z",
+      "updatedAt": "2026-11-14T08:38:35.649Z"
     }
   ],
   "donorProfiles": [
     {
-      "userId": "3e62538f9f85d7de5b9d3e17",
+      "userId": "6c6d4fc7d52ed7f8bda626b0",
       "orgType": "hotel",
       "fssaiLicenseNumber": "FSSAI-112233445566",
       "pickupInstructions": "Enter via Loading Dock 3 behind banquet hall; ask for Chef Anand.",
-      "_id": "4086f2187ae0d80a9bffba09",
-      "createdAt": "2026-11-14T08:31:00.375Z",
-      "updatedAt": "2026-11-14T08:31:01.056Z",
+      "_id": "1c280aa64d93f7ad2e499a37",
+      "createdAt": "2026-11-14T08:38:35.626Z",
+      "updatedAt": "2026-11-14T08:38:36.462Z",
       "totalDonationsCount": 1,
       "totalServingsDonated": 70
     },
     {
-      "userId": "53ad51d28af17c9b96d864b3",
+      "userId": "0d6f6beb7c16801223c07170",
       "orgType": "supermarket",
       "fssaiLicenseNumber": "FSSAI-998877665544",
       "pickupInstructions": "Service counter at rear delivery bay.",
-      "_id": "cf706217d0d58cfde128ee32",
-      "createdAt": "2026-11-14T08:31:00.379Z",
-      "updatedAt": "2026-11-14T08:31:00.379Z"
+      "_id": "5b5a889b77e35b9ff55ce402",
+      "createdAt": "2026-11-14T08:38:35.628Z",
+      "updatedAt": "2026-11-14T08:38:35.628Z"
     }
   ],
   "ngoProfiles": [
     {
-      "userId": "e2c412b16c2f4959f8f4fb22",
+      "userId": "142de6c1304e5a743ad5204c",
       "organizationName": "[DEMO] Ashraya Children Home (NGO A)",
       "registrationNumber": "REG-KA-2018-8834",
       "beneficiaryCount": 45,
@@ -234,12 +234,12 @@
       "hotHoldingAvailable": true,
       "reliabilityScore": 0.98,
       "isApprovedByAdmin": true,
-      "_id": "bad2427b3343c8672c9da5df",
-      "createdAt": "2026-11-14T08:31:00.382Z",
-      "updatedAt": "2026-11-14T08:31:00.936Z"
+      "_id": "de35aee4dc20714ef77399c6",
+      "createdAt": "2026-11-14T08:38:35.633Z",
+      "updatedAt": "2026-11-14T08:38:36.282Z"
     },
     {
-      "userId": "acf23b95e5f663ab9a15dc70",
+      "userId": "22e112727ced25aa8cff06e7",
       "organizationName": "[DEMO] Sneha Care Senior Home (NGO B)",
       "registrationNumber": "REG-KA-2015-4421",
       "beneficiaryCount": 50,
@@ -249,12 +249,12 @@
       "hotHoldingAvailable": true,
       "reliabilityScore": 0.92,
       "isApprovedByAdmin": true,
-      "_id": "9680bd577d3506eb0c44cb00",
-      "createdAt": "2026-11-14T08:31:00.386Z",
-      "updatedAt": "2026-11-14T08:31:00.953Z"
+      "_id": "e52ad9999b075993bd154cc9",
+      "createdAt": "2026-11-14T08:38:35.635Z",
+      "updatedAt": "2026-11-14T08:38:36.308Z"
     },
     {
-      "userId": "51e57e7194697eaf2cd11883",
+      "userId": "c064129be2fa881c7d775b62",
       "organizationName": "[DEMO] St. Jude Community Kitchen (NGO C)",
       "registrationNumber": "REG-KA-2020-9901",
       "beneficiaryCount": 30,
@@ -264,12 +264,12 @@
       "hotHoldingAvailable": true,
       "reliabilityScore": 0.9,
       "isApprovedByAdmin": true,
-      "_id": "85d3943ba34e16b2bedd638d",
-      "createdAt": "2026-11-14T08:31:00.389Z",
-      "updatedAt": "2026-11-14T08:31:00.940Z"
+      "_id": "272b665b1effc62aa1a5417d",
+      "createdAt": "2026-11-14T08:38:35.638Z",
+      "updatedAt": "2026-11-14T08:38:36.286Z"
     },
     {
-      "userId": "9f0c07a6b9b8ae44817ce824",
+      "userId": "4a7bbac757a396c62b34f6d8",
       "organizationName": "[DEMO] Mother Teresa Crisis Center (Backup NGO D)",
       "registrationNumber": "REG-KA-2021-3321",
       "beneficiaryCount": 50,
@@ -279,12 +279,12 @@
       "hotHoldingAvailable": true,
       "reliabilityScore": 0.95,
       "isApprovedByAdmin": true,
-      "_id": "a5fa38580cf3a1de876bfbe8",
-      "createdAt": "2026-11-14T08:31:00.392Z",
-      "updatedAt": "2026-11-14T08:31:00.956Z"
+      "_id": "59898c0cdc7a4203dd6a5e8d",
+      "createdAt": "2026-11-14T08:38:35.641Z",
+      "updatedAt": "2026-11-14T08:38:36.315Z"
     },
     {
-      "userId": "9aa25b2aa7107d4e3682917a",
+      "userId": "e68fae5f5fd7ee4390b56903",
       "organizationName": "[DEMO] Karuna Care Foundation (Pending Approval)",
       "registrationNumber": "REG-KA-2024-9912",
       "beneficiaryCount": 40,
@@ -295,27 +295,27 @@
       "reliabilityScore": 0.9,
       "isApprovedByAdmin": false,
       "verificationNotes": "Pending compliance review of 80G tax exemption certificate and kitchen safety report.",
-      "_id": "cc9cbf27be5c89601f12660c",
-      "createdAt": "2026-11-14T08:31:00.395Z",
-      "updatedAt": "2026-11-14T08:31:00.395Z"
+      "_id": "35b166660a6ef6c9637ba7f6",
+      "createdAt": "2026-11-14T08:38:35.643Z",
+      "updatedAt": "2026-11-14T08:38:35.643Z"
     }
   ],
   "volunteerProfiles": [
     {
-      "userId": "4635215c3fb0c7c5a75e7d41",
+      "userId": "ab42521acc4c7919bae8537d",
       "vehicleType": "car",
       "maxPayloadKg": 60,
       "isAvailable": true,
       "completedDeliveriesCount": 15,
-      "_id": "ee4dad603ab20ddc1c7732f9",
-      "createdAt": "2026-11-14T08:31:00.398Z",
-      "updatedAt": "2026-11-14T08:31:01.058Z",
+      "_id": "3d1804106f18aa1882593364",
+      "createdAt": "2026-11-14T08:38:35.647Z",
+      "updatedAt": "2026-11-14T08:38:36.465Z",
       "activeAssignmentId": null
     }
   ],
   "foodDonations": [
     {
-      "donorId": "3e62538f9f85d7de5b9d3e17",
+      "donorId": "6c6d4fc7d52ed7f8bda626b0",
       "title": "[DEMO] Executive Buffet Rice & Dal Surplus",
       "category": "cooked_meals",
       "items": [
@@ -327,8 +327,8 @@
       ],
       "totalServings": 80,
       "remainingServings": 0,
-      "preparationTime": "2026-11-13T08:31:00.408Z",
-      "safeUseDeadline": "2026-11-13T14:31:00.408Z",
+      "preparationTime": "2026-11-13T08:38:35.657Z",
+      "safeUseDeadline": "2026-11-13T14:38:35.657Z",
       "storageCondition": "hot_holding",
       "pickupAddress": {
         "street": "42 MG Road",
@@ -343,12 +343,12 @@
       },
       "status": "COMPLETED",
       "isDemo": true,
-      "_id": "3ab7345a33d2e58e11d396de",
-      "createdAt": "2026-11-14T08:31:00.408Z",
-      "updatedAt": "2026-11-14T08:31:00.408Z"
+      "_id": "91bac7b0c692fdcfa3b8ef8b",
+      "createdAt": "2026-11-14T08:38:35.657Z",
+      "updatedAt": "2026-11-14T08:38:35.657Z"
     },
     {
-      "donorId": "3e62538f9f85d7de5b9d3e17",
+      "donorId": "6c6d4fc7d52ed7f8bda626b0",
       "title": "[DEMO] Grand Palace Banquet Surplus Feast",
       "category": "cooked_meals",
       "items": [
@@ -360,8 +360,8 @@
       ],
       "totalServings": 150,
       "remainingServings": 0,
-      "preparationTime": "2026-11-14T07:31:00.923Z",
-      "safeUseDeadline": "2026-11-14T13:31:00.924Z",
+      "preparationTime": "2026-11-14T07:38:36.257Z",
+      "safeUseDeadline": "2026-11-14T13:38:36.257Z",
       "storageCondition": "hot_holding",
       "allergenAlerts": [
         "Dairy"
@@ -381,14 +381,14 @@
       "status": "COMPLETED",
       "donorCertifiedSafe": true,
       "isDemo": true,
-      "_id": "64c332c1e2394d5c8e71bad7",
-      "createdAt": "2026-11-14T08:31:00.932Z",
-      "updatedAt": "2026-11-14T08:31:01.057Z"
+      "_id": "5435a1b38e81416cc8fa6413",
+      "createdAt": "2026-11-14T08:38:36.271Z",
+      "updatedAt": "2026-11-14T08:38:36.464Z"
     }
   ],
   "ngoFoodDemands": [
     {
-      "ngoId": "e2c412b16c2f4959f8f4fb22",
+      "ngoId": "142de6c1304e5a743ad5204c",
       "requestedCategories": [
         "cooked_meals"
       ],
@@ -396,16 +396,16 @@
       "fulfilledServings": 70,
       "remainingServings": 0,
       "urgencyLevel": "HIGH",
-      "requiredBefore": "2026-11-14T13:31:00.402Z",
+      "requiredBefore": "2026-11-14T13:38:35.651Z",
       "notes": "Breakfast requirement for 45 children.",
       "status": "FULFILLED",
       "isDemo": true,
-      "_id": "aa25897e103441b51208aea6",
-      "createdAt": "2026-11-14T08:31:00.402Z",
-      "updatedAt": "2026-11-14T08:31:01.055Z"
+      "_id": "f281f3be569ec9f2dbf06e8b",
+      "createdAt": "2026-11-14T08:38:35.652Z",
+      "updatedAt": "2026-11-14T08:38:36.461Z"
     },
     {
-      "ngoId": "acf23b95e5f663ab9a15dc70",
+      "ngoId": "22e112727ced25aa8cff06e7",
       "requestedCategories": [
         "cooked_meals"
       ],
@@ -413,16 +413,16 @@
       "fulfilledServings": 0,
       "remainingServings": 50,
       "urgencyLevel": "HIGH",
-      "requiredBefore": "2026-11-14T13:31:00.403Z",
+      "requiredBefore": "2026-11-14T13:38:35.653Z",
       "notes": "Lunch requirement for senior residents.",
       "status": "ACTIVE",
       "isDemo": true,
-      "_id": "40eb9c86c9cbef48c2c8b88f",
-      "createdAt": "2026-11-14T08:31:00.403Z",
-      "updatedAt": "2026-11-14T08:31:00.403Z"
+      "_id": "00f99b860251e617b28ea5a7",
+      "createdAt": "2026-11-14T08:38:35.653Z",
+      "updatedAt": "2026-11-14T08:38:35.653Z"
     },
     {
-      "ngoId": "51e57e7194697eaf2cd11883",
+      "ngoId": "c064129be2fa881c7d775b62",
       "requestedCategories": [
         "cooked_meals"
       ],
@@ -430,16 +430,16 @@
       "fulfilledServings": 0,
       "remainingServings": 30,
       "urgencyLevel": "HIGH",
-      "requiredBefore": "2026-11-14T14:31:00.405Z",
+      "requiredBefore": "2026-11-14T14:38:35.654Z",
       "notes": "Community kitchen dinner supplement.",
       "status": "ACTIVE",
       "isDemo": true,
-      "_id": "e29036964d1e79d17576384e",
-      "createdAt": "2026-11-14T08:31:00.405Z",
-      "updatedAt": "2026-11-14T08:31:00.405Z"
+      "_id": "fb9548febdfdb2fab422ff3d",
+      "createdAt": "2026-11-14T08:38:35.654Z",
+      "updatedAt": "2026-11-14T08:38:35.654Z"
     },
     {
-      "ngoId": "9f0c07a6b9b8ae44817ce824",
+      "ngoId": "4a7bbac757a396c62b34f6d8",
       "requestedCategories": [
         "cooked_meals"
       ],
@@ -447,20 +447,20 @@
       "fulfilledServings": 0,
       "remainingServings": 50,
       "urgencyLevel": "STANDARD",
-      "requiredBefore": "2026-11-14T15:31:00.406Z",
+      "requiredBefore": "2026-11-14T15:38:35.655Z",
       "notes": "Emergency night shelter reserve demand.",
       "status": "ACTIVE",
       "isDemo": true,
-      "_id": "850f405c6df89897e69aab67",
-      "createdAt": "2026-11-14T08:31:00.406Z",
-      "updatedAt": "2026-11-14T08:31:00.406Z"
+      "_id": "a9409fc1057bd6b5101cd435",
+      "createdAt": "2026-11-14T08:38:35.656Z",
+      "updatedAt": "2026-11-14T08:38:35.656Z"
     }
   ],
   "allocations": [
     {
-      "donationId": "64c332c1e2394d5c8e71bad7",
-      "ngoId": "e2c412b16c2f4959f8f4fb22",
-      "demandId": "aa25897e103441b51208aea6",
+      "donationId": "5435a1b38e81416cc8fa6413",
+      "ngoId": "142de6c1304e5a743ad5204c",
+      "demandId": "f281f3be569ec9f2dbf06e8b",
       "allocatedServings": 70,
       "matchScore": 80,
       "scoreBreakdown": {
@@ -479,17 +479,17 @@
         "estimatedTransitMins": 5
       },
       "recommendationRationale": "Allocated 70 servings to [DEMO] Ashraya Children Home (NGO A) (2.5 km away, ~5 mins transit) with a 80% match score. Matches active dietary demand while remaining strictly within their verified daily receiving capacity.",
-      "responseDeadline": "2026-11-14T09:01:00.934Z",
+      "responseDeadline": "2026-11-14T09:08:36.274Z",
       "status": "ACCEPTED",
       "isDemo": true,
-      "_id": "fa20ddfa6ca7dc4515d83c1d",
-      "createdAt": "2026-11-14T08:31:00.935Z",
-      "updatedAt": "2026-11-14T08:31:00.975Z"
+      "_id": "c786ffccdc5531cf5ab68a0a",
+      "createdAt": "2026-11-14T08:38:36.276Z",
+      "updatedAt": "2026-11-14T08:38:36.357Z"
     },
     {
-      "donationId": "64c332c1e2394d5c8e71bad7",
-      "ngoId": "acf23b95e5f663ab9a15dc70",
-      "demandId": "40eb9c86c9cbef48c2c8b88f",
+      "donationId": "5435a1b38e81416cc8fa6413",
+      "ngoId": "22e112727ced25aa8cff06e7",
+      "demandId": "00f99b860251e617b28ea5a7",
       "allocatedServings": 50,
       "matchScore": 79,
       "scoreBreakdown": {
@@ -508,18 +508,18 @@
         "estimatedTransitMins": 5
       },
       "recommendationRationale": "Allocated 50 servings to [DEMO] Sneha Care Senior Home (NGO B) (2.5 km away, ~5 mins transit) with a 79% match score. Matches active dietary demand while remaining strictly within their verified daily receiving capacity.",
-      "responseDeadline": "2026-11-14T09:01:00.934Z",
+      "responseDeadline": "2026-11-14T09:08:36.274Z",
       "status": "DECLINED",
       "isDemo": true,
-      "_id": "d92d173aefddeb28f8741557",
-      "createdAt": "2026-11-14T08:31:00.937Z",
-      "updatedAt": "2026-11-14T08:31:00.952Z",
+      "_id": "2ea1726f77215b3b1b34bff0",
+      "createdAt": "2026-11-14T08:38:36.278Z",
+      "updatedAt": "2026-11-14T08:38:36.306Z",
       "declinedReason": "Kitchen staff unavailable for distribution today."
     },
     {
-      "donationId": "64c332c1e2394d5c8e71bad7",
-      "ngoId": "51e57e7194697eaf2cd11883",
-      "demandId": "e29036964d1e79d17576384e",
+      "donationId": "5435a1b38e81416cc8fa6413",
+      "ngoId": "c064129be2fa881c7d775b62",
+      "demandId": "fb9548febdfdb2fab422ff3d",
       "allocatedServings": 30,
       "matchScore": 79,
       "scoreBreakdown": {
@@ -538,17 +538,17 @@
         "estimatedTransitMins": 5
       },
       "recommendationRationale": "Allocated 30 servings to [DEMO] St. Jude Community Kitchen (NGO C) (2.5 km away, ~5 mins transit) with a 79% match score. Matches active dietary demand while remaining strictly within their verified daily receiving capacity.",
-      "responseDeadline": "2026-11-14T09:01:00.934Z",
+      "responseDeadline": "2026-11-14T09:08:36.274Z",
       "status": "PROPOSED",
       "isDemo": true,
-      "_id": "7e6d2e3d550722371e953fad",
-      "createdAt": "2026-11-14T08:31:00.939Z",
-      "updatedAt": "2026-11-14T08:31:00.939Z"
+      "_id": "d9fcf8b8129c528673a1d046",
+      "createdAt": "2026-11-14T08:38:36.279Z",
+      "updatedAt": "2026-11-14T08:38:36.279Z"
     },
     {
-      "donationId": "64c332c1e2394d5c8e71bad7",
-      "ngoId": "9f0c07a6b9b8ae44817ce824",
-      "demandId": "850f405c6df89897e69aab67",
+      "donationId": "5435a1b38e81416cc8fa6413",
+      "ngoId": "4a7bbac757a396c62b34f6d8",
+      "demandId": "a9409fc1057bd6b5101cd435",
       "allocatedServings": 50,
       "matchScore": 75,
       "scoreBreakdown": {
@@ -567,35 +567,35 @@
         "estimatedTransitMins": 5
       },
       "recommendationRationale": "Allocated 50 servings to [DEMO] Mother Teresa Crisis Center (Backup NGO D) (2.5 km away, ~5 mins transit) with a 75% match score. Matches active dietary demand while remaining strictly within their verified daily receiving capacity.",
-      "responseDeadline": "2026-11-14T09:01:00.955Z",
+      "responseDeadline": "2026-11-14T09:08:36.312Z",
       "status": "PROPOSED",
       "isDemo": true,
-      "_id": "dbb6c1bd4bffaf19c612bc6f",
-      "createdAt": "2026-11-14T08:31:00.956Z",
-      "updatedAt": "2026-11-14T08:31:00.956Z"
+      "_id": "fa7c8bf980823663c242a8c5",
+      "createdAt": "2026-11-14T08:38:36.312Z",
+      "updatedAt": "2026-11-14T08:38:36.312Z"
     }
   ],
   "pickupAssignments": [
     {
       "allocationId": "alloc_historical_01",
-      "donationId": "3ab7345a33d2e58e11d396de",
-      "ngoId": "e2c412b16c2f4959f8f4fb22",
-      "volunteerId": "4635215c3fb0c7c5a75e7d41",
+      "donationId": "91bac7b0c692fdcfa3b8ef8b",
+      "ngoId": "142de6c1304e5a743ad5204c",
+      "volunteerId": "ab42521acc4c7919bae8537d",
       "status": "DELIVERED",
       "timeline": {
-        "claimedAt": "2026-11-13T09:31:00.409Z",
-        "pickedUpAt": "2026-11-13T10:01:00.409Z",
-        "deliveredAt": "2026-11-13T10:31:00.409Z"
+        "claimedAt": "2026-11-13T09:38:35.659Z",
+        "pickedUpAt": "2026-11-13T10:08:35.659Z",
+        "deliveredAt": "2026-11-13T10:38:35.659Z"
       },
       "isDemo": true,
-      "_id": "70f4da1e8aebecfaf14c6f94",
-      "createdAt": "2026-11-14T08:31:00.410Z",
-      "updatedAt": "2026-11-14T08:31:00.410Z"
+      "_id": "fba5af11c1ed64cd2f84e315",
+      "createdAt": "2026-11-14T08:38:35.659Z",
+      "updatedAt": "2026-11-14T08:38:35.659Z"
     },
     {
-      "allocationId": "fa20ddfa6ca7dc4515d83c1d",
-      "donationId": "64c332c1e2394d5c8e71bad7",
-      "ngoId": "e2c412b16c2f4959f8f4fb22",
+      "allocationId": "c786ffccdc5531cf5ab68a0a",
+      "donationId": "5435a1b38e81416cc8fa6413",
+      "ngoId": "142de6c1304e5a743ad5204c",
       "pickupAddress": {
         "street": "42 MG Road Loading Dock 3",
         "city": "Bangalore",
@@ -614,47 +614,47 @@
       },
       "status": "DELIVERED",
       "isDemo": true,
-      "_id": "d36b91603a140c87764d8d5c",
-      "createdAt": "2026-11-14T08:31:00.976Z",
-      "updatedAt": "2026-11-14T08:31:01.052Z",
-      "volunteerId": "4635215c3fb0c7c5a75e7d41",
+      "_id": "1b6b25192e6776ffe782fa68",
+      "createdAt": "2026-11-14T08:38:36.359Z",
+      "updatedAt": "2026-11-14T08:38:36.458Z",
+      "volunteerId": "ab42521acc4c7919bae8537d",
       "timeline": {
-        "claimedAt": "2026-11-14T08:31:00.995Z",
-        "pickedUpAt": "2026-11-14T08:31:01.036Z",
-        "deliveredAt": "2026-11-14T08:31:01.052Z"
+        "claimedAt": "2026-11-14T08:38:36.392Z",
+        "pickedUpAt": "2026-11-14T08:38:36.434Z",
+        "deliveredAt": "2026-11-14T08:38:36.458Z"
       }
     }
   ],
   "handoverVerifications": [
     {
-      "assignmentId": "70f4da1e8aebecfaf14c6f94",
-      "donorOtpHash": "dff4077071fb058e80b779a7be3b794fad81bc5455b23f36412d0fd8ee6593a9",
-      "donorOtpSalt": "bff24740900f80cfe966f05b93b74303",
-      "donorConfirmedAt": "2026-11-13T10:01:00.413Z",
-      "ngoOtpHash": "9fff90e82c87bc9493668525e9935fe4337f2bb8174588b5fdf678d04c4e84fe",
-      "ngoOtpSalt": "48cd0f2079b2af11d3ad9331765c16f2",
-      "ngoConfirmedAt": "2026-11-13T10:31:00.413Z",
+      "assignmentId": "fba5af11c1ed64cd2f84e315",
+      "donorOtpHash": "66c4c348e49bc7e57165f706477bb57240ae8ab639b0de05070c8a3904e1eaf3",
+      "donorOtpSalt": "e4ec7cc9de81867f1c638dd304bff2a4",
+      "donorConfirmedAt": "2026-11-13T10:08:35.661Z",
+      "ngoOtpHash": "e9d0d883d1d8ccd37194323d8760352c5c938b01a89e18cbda05db205415ee22",
+      "ngoOtpSalt": "f1fce4e53fcd9498bc146aeb8fea0de4",
+      "ngoConfirmedAt": "2026-11-13T10:38:35.661Z",
       "receivedServings": 80,
       "storageConditionAtReceipt": "compliant",
       "isDemo": true,
-      "_id": "9a8e6478aee414d38e3eb561",
-      "createdAt": "2026-11-14T08:31:00.413Z",
-      "updatedAt": "2026-11-14T08:31:00.413Z"
+      "_id": "3f9ad1e69f370b7f0c51d0a9",
+      "createdAt": "2026-11-14T08:38:35.661Z",
+      "updatedAt": "2026-11-14T08:38:35.661Z"
     },
     {
-      "assignmentId": "d36b91603a140c87764d8d5c",
-      "donorOtpHash": "7eee157417b8d6931ba53928cd4c32a625c235393874f3ed2dcd0dd63d9ed077",
-      "donorOtpSalt": "18bc2595eb97886bac6c6ca0927c39f7",
-      "ngoOtpHash": "6d2f3acdd7aa9808214557aae58ed2bc44b7b1f11603c6126c12692173d2fba9",
-      "ngoOtpSalt": "02d06fbfcea5e3545f86d03bf661dc61",
+      "assignmentId": "1b6b25192e6776ffe782fa68",
+      "donorOtpHash": "b76c9f787a67ba67be42ccd820dd54d24939757484391fbbac714d8402a08623",
+      "donorOtpSalt": "b4ee3c9c62909b5ad29c43ea8ece94ca",
+      "ngoOtpHash": "32b2d22f052ca54c2e9d20372933c03b8ba096b910565ff3ebc562d7141a6d29",
+      "ngoOtpSalt": "830de7a4fe29e01f39b81ffb6a70c2d3",
       "isDemo": true,
-      "_id": "af644cfa9988191251925a50",
-      "createdAt": "2026-11-14T08:31:00.977Z",
-      "updatedAt": "2026-11-14T08:31:01.051Z",
+      "_id": "4258e33fb51e779e46a3de4c",
+      "createdAt": "2026-11-14T08:38:36.361Z",
+      "updatedAt": "2026-11-14T08:38:36.456Z",
       "donorFailedAttempts": 1,
       "isLocked": false,
-      "donorConfirmedAt": "2026-11-14T08:31:01.035Z",
-      "ngoConfirmedAt": "2026-11-14T08:31:01.051Z",
+      "donorConfirmedAt": "2026-11-14T08:38:36.433Z",
+      "ngoConfirmedAt": "2026-11-14T08:38:36.456Z",
       "receivedServings": 70,
       "storageConditionAtReceipt": "compliant"
     }

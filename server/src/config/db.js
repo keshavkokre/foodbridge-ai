@@ -7,6 +7,11 @@ export async function connectDB(uri = process.env.MONGODB_URI) {
 
   const mongoUri = uri || 'mongodb://127.0.0.1:27017/foodbridge_ai';
 
+  if (!mongoUri || mongoUri.includes('YOUR_ATLAS') || (!mongoUri.startsWith('mongodb://') && !mongoUri.startsWith('mongodb+srv://'))) {
+    console.log('[DB] No live MongoDB URI configured. Running in detached/mock mode for development.');
+    return null;
+  }
+
   try {
     const conn = await mongoose.connect(mongoUri, {
       serverSelectionTimeoutMS: 5000,

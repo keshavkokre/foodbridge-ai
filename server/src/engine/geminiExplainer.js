@@ -2,16 +2,31 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { sanitizeTextForAi } from '../utils/sanitizeForAi.js';
 import { FOOD_CATEGORIES, STORAGE_CONDITIONS } from '../config/constants.js';
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const RUNTIME_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-
 let genAI = null;
-if (GEMINI_API_KEY) {
-  try {
-    genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-  } catch (err) {
-    console.warn('[AI BRIDGE] Failed to initialize GoogleGenerativeAI SDK:', err.message);
+function getGenAI() {
+  if (process.env.NODE_ENV === 'test') return null;
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || apiKey === 'your_gemini_api_key_here') return null;
+  if (!genAI) {
+    try {
+      genAI = new GoogleGenerativeAI(apiKey);
+    } catch (err) {
+      console.warn('[AI BRIDGE] Failed to initialize GoogleGenerativeAI SDK:', err.message);
+    }
   }
+  return genAI;
+}
+
+function getRuntimeModel() {
+  return process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+}
+
+async function callWithTimeout(promise, ms = 2500) {
+  let timer;
+  const timeoutPromise = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error('AI generation timed out')), ms);
+  });
+  return Promise.race([promise, timeoutPromise]).finally(() => clearTimeout(timer));
 }
 
 /**
@@ -20,10 +35,11 @@ if (GEMINI_API_KEY) {
  */
 export async function parseUnstructuredDonation(rawDescription) {
   const sanitizedPrompt = sanitizeTextForAi(rawDescription);
+  const ai = getGenAI();
 
-  if (genAI && sanitizedPrompt) {
+  if (ai && sanitizedPrompt) {
     try {
-      const model = genAI.getGenerativeModel({ model: RUNTIME_MODEL });
+      const model = ai.getGenerativeModel({ model: getRuntimeModel() });
       const prompt = `You are an AI assistant for FoodBridge AI surplus food rescue.
 Extract structured food donation details from the following description and return ONLY valid JSON:
 Description: "${sanitizedPrompt}"
@@ -39,7 +55,7 @@ Return this exact JSON format:
 }
 Do not include markdown fences or explanation.`;
 
-      const result = await model.generateContent(prompt);
+      const result = await callWithTimeout(model.generateContent(prompt), 2500);
       const responseText = result.response.text().trim();
       const cleanJson = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
       const parsed = JSON.parse(cleanJson);
@@ -109,9 +125,10 @@ export async function generateAllocationRationale(allocation, donation, ngoProfi
   const orgName = ngoProfile.organizationName || 'Verified Relief Center';
   const portion = allocation.allocatedServings;
 
-  if (genAI) {
+  const ai = getGenAI();
+  if (ai) {
     try {
-      const model = genAI.getGenerativeModel({ model: RUNTIME_MODEL });
+      const model = ai.getGenerativeModel({ model: getRuntimeModel() });
       const prompt = `Synthesize a concise 2-sentence rationale explaining why ${portion} servings of ${donation.title} was allocated to ${orgName}.
 Key facts:
 - Distance: ${distanceKm} km (~${transitMins} min transit)
@@ -121,7 +138,7 @@ Key facts:
 - Dietary requirement match: Yes
 Tone: Professional, operational, concise.`;
 
-      const result = await model.generateContent(prompt);
+      const result = await callWithTimeout(model.generateContent(prompt), 2500);
       return result.response.text().trim();
     } catch (err) {
       console.warn(`[AI BRIDGE] Gemini rationale synthesis skipped (${err.message}). Using deterministic template.`);
