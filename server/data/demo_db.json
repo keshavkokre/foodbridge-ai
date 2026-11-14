@@ -11,12 +11,103 @@
       "_id": "68af2255c41143c2e8192029",
       "createdAt": "2026-11-14T09:06:15.626Z",
       "updatedAt": "2026-11-14T09:06:15.626Z"
+    },
+    {
+      "email": "keshavkokre30@gmail.com",
+      "passwordHash": "$2a$10$6deHimlfrG1IOn0jl0pAbOPFCM3GwgJwxVqN5MXTOoP4m7YDOo5bK",
+      "role": "donor",
+      "fullName": "Keshav G K",
+      "phone": "+918431440950",
+      "address": {},
+      "isDemo": false,
+      "_id": "bed42ed58a662cd6aff4428b",
+      "createdAt": "2026-11-14T09:14:53.353Z",
+      "updatedAt": "2026-11-14T09:14:53.353Z"
+    },
+    {
+      "email": "keshavkokre85@gmail.com",
+      "passwordHash": "$2a$10$PbzGPXhKdtSdC0nkRr1LquEh.Q8PmLYbuTpfXLD3T903TyoZ/mzS.",
+      "role": "ngo",
+      "fullName": "Keshav G K",
+      "phone": "+918431440950",
+      "address": {},
+      "isDemo": false,
+      "_id": "f9297ff47c13944b3748a2fb",
+      "createdAt": "2026-11-14T09:16:07.420Z",
+      "updatedAt": "2026-11-14T09:16:07.420Z"
     }
   ],
-  "donorProfiles": [],
-  "ngoProfiles": [],
+  "donorProfiles": [
+    {
+      "userId": "bed42ed58a662cd6aff4428b",
+      "orgType": "restaurant",
+      "fssaiLicenseNumber": null,
+      "pickupInstructions": "",
+      "_id": "4e0519dcf4e7a3b87021dabe",
+      "createdAt": "2026-11-14T09:14:53.355Z",
+      "updatedAt": "2026-11-14T09:14:53.355Z"
+    }
+  ],
+  "ngoProfiles": [
+    {
+      "userId": "f9297ff47c13944b3748a2fb",
+      "organizationName": "Keshav G K",
+      "registrationNumber": "NGO-PENDING",
+      "beneficiaryCount": 50,
+      "dailyReceivingCapacity": 100,
+      "coldStorageAvailable": false,
+      "hotHoldingAvailable": false,
+      "operatingHours": {
+        "open": "08:00",
+        "close": "21:00"
+      },
+      "isApprovedByAdmin": true,
+      "_id": "1171ff4453f425694223fcdb",
+      "createdAt": "2026-11-14T09:16:07.422Z",
+      "updatedAt": "2026-11-14T09:16:07.422Z"
+    }
+  ],
   "volunteerProfiles": [],
-  "foodDonations": [],
+  "foodDonations": [
+    {
+      "donorId": "bed42ed58a662cd6aff4428b",
+      "title": "fresh biryani",
+      "category": "cooked_meals",
+      "items": [
+        {
+          "name": "fresh biryani",
+          "quantity": 60,
+          "unit": "servings"
+        }
+      ],
+      "totalServings": 60,
+      "remainingServings": 60,
+      "preparationTime": "2026-11-14T03:44:00.000Z",
+      "safeUseDeadline": "2026-11-14T07:44:00.000Z",
+      "storageCondition": "hot_holding",
+      "allergenAlerts": [
+        "Dairy"
+      ],
+      "packagingDescription": "Food-grade sealed thermal containers",
+      "pickupAddress": {
+        "street": "Central Donor Bay",
+        "city": "Bangalore",
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            77.5946,
+            12.9716
+          ]
+        }
+      },
+      "status": "SUBMITTED",
+      "donorCertifiedSafe": true,
+      "isDemo": false,
+      "_id": "56f85ce9ab4ada2484e96b91",
+      "createdAt": "2026-11-14T09:15:40.795Z",
+      "updatedAt": "2026-11-14T09:15:40.799Z"
+    }
+  ],
   "ngoFoodDemands": [],
   "allocations": [],
   "pickupAssignments": [],
