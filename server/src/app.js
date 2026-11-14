@@ -2,6 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/authRoutes.js';
+import donationRoutes from './routes/donationRoutes.js';
+import demandRoutes from './routes/demandRoutes.js';
+import allocationRoutes from './routes/allocationRoutes.js';
+import assignmentRoutes from './routes/assignmentRoutes.js';
+import impactRoutes from './routes/impactRoutes.js';
 
 const app = express();
 
@@ -34,6 +39,11 @@ app.get('/api/health', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/donations', donationRoutes);
+app.use('/api/demands', demandRoutes);
+app.use('/api/allocations', allocationRoutes);
+app.use('/api/assignments', assignmentRoutes);
+app.use('/api/impact', impactRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
