@@ -63,3 +63,4 @@ const handoverVerificationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export const HandoverVerification = mongoose.model('HandoverVerification', handoverVerificationSchema);
+

@@ -56,3 +56,4 @@ const ngoFoodDemandSchema = new mongoose.Schema({
 ngoFoodDemandSchema.index({ ngoId: 1, status: 1 });
 
 export const NGOFoodDemand = mongoose.model('NGOFoodDemand', ngoFoodDemandSchema);
+

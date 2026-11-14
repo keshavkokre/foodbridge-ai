@@ -42,3 +42,4 @@ export const FoodSafetyPolicy = {
   minBatchServings: 10,
   responseTtlMs: 30 * 60 * 1000 // 30 minutes response deadline for proposed allocations
 };
+

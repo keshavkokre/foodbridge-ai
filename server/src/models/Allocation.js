@@ -66,3 +66,4 @@ allocationSchema.index({ donationId: 1, ngoId: 1 });
 allocationSchema.index({ status: 1, responseDeadline: 1 });
 
 export const Allocation = mongoose.model('Allocation', allocationSchema);
+

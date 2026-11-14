@@ -56,3 +56,4 @@ const ngoProfileSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export const NGOProfile = mongoose.model('NGOProfile', ngoProfileSchema);
+

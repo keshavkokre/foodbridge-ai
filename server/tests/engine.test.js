@@ -152,3 +152,4 @@ describe('Multi-NGO Intelligent Allocation Engine & Mathematical Invariants', ()
     expect(parsed.allergenAlerts).toContain('Dairy');
   });
 });
+

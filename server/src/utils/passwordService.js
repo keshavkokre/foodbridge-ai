@@ -9,3 +9,4 @@ export async function hashPassword(plainPassword) {
 export async function comparePassword(plainPassword, passwordHash) {
   return bcrypt.compare(plainPassword, passwordHash);
 }
+

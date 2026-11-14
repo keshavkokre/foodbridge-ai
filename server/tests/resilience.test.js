@@ -45,3 +45,4 @@ describe('System Resilience, Fallbacks & Edge Cases', () => {
     expect(FoodSafetyPolicy.responseTtlMs).toBe(30 * 60 * 1000);
   });
 });
+

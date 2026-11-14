@@ -7,3 +7,4 @@ router.get('/summary', getImpactSummary);
 router.get('/recent', getRecentRescues);
 
 export default router;
+

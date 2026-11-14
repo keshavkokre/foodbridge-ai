@@ -95,3 +95,4 @@ describe('Deterministic Food Safety & Eligibility Filter', () => {
     expect(result.reason).toContain('safe hot-holding transit window');
   });
 });
+

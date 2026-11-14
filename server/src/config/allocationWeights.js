@@ -25,3 +25,4 @@ export function getAllocationWeights() {
     history: wHist / total
   };
 }
+

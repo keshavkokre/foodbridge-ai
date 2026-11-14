@@ -28,3 +28,4 @@ export async function disconnectDB() {
     await mongoose.disconnect();
   }
 }
+

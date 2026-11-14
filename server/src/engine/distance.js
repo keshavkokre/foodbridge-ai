@@ -44,3 +44,4 @@ export function estimateTransitMinutes(distanceKm, averageUrbanSpeedKmh = 22) {
   const transitMinutes = Math.ceil(transitHours * 60) + 5; // 5 min buffer for pickup/parking
   return transitMinutes;
 }
+

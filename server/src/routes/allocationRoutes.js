@@ -11,3 +11,4 @@ router.post('/:id/accept', authGuard, roleGuard([ROLES.NGO, ROLES.ADMIN]), accep
 router.post('/:id/decline', authGuard, roleGuard([ROLES.NGO, ROLES.ADMIN]), declineAllocation);
 
 export default router;
+

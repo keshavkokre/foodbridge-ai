@@ -75,3 +75,4 @@ describe('Security & Cryptographic Guardrails', () => {
     expect(forbiddenResponse.data.error).toContain('requires one of the following roles');
   });
 });
+

@@ -71,3 +71,4 @@ export function calculateCandidateScores(donation, demand, ngoCap, ngoProfile, d
     weights
   };
 }
+

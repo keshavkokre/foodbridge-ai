@@ -33,3 +33,4 @@ export function createOtpCredentials() {
   const { hash, salt } = hashOtp(rawOtp);
   return { rawOtp, salt, hash };
 }
+

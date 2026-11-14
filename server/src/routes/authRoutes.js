@@ -37,3 +37,4 @@ router.post('/login', validateRequest(loginSchema), login);
 router.get('/me', authGuard, getMe);
 
 export default router;
+

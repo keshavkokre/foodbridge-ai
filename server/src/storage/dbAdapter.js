@@ -285,3 +285,4 @@ function setNestedValue(obj, pathStr, value) {
   }
   curr[parts[parts.length - 1]] = value;
 }
+

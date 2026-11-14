@@ -19,3 +19,4 @@ export function sanitizeTextForAi(inputText) {
 
   return sanitized.trim();
 }
+

@@ -96,3 +96,4 @@ export function evaluateCandidateEligibility(donation, demand, ngoProfile, optio
     remainingMinutesToExpiry: Math.round(remainingMinutes)
   };
 }
+

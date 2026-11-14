@@ -86,3 +86,4 @@ foodDonationSchema.index({ 'pickupAddress.location': '2dsphere' });
 foodDonationSchema.index({ status: 1, safeUseDeadline: 1 });
 
 export const FoodDonation = mongoose.model('FoodDonation', foodDonationSchema);
+

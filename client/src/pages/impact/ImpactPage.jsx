@@ -239,3 +239,4 @@ export default function ImpactPage() {
     </div>
   );
 }
+

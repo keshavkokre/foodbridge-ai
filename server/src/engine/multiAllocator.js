@@ -112,3 +112,4 @@ export function computeMultiNgoAllocations(donation, demandsList, ngoProfilesMap
     candidateCount: scoredCandidates.length
   };
 }
+

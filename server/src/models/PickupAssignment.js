@@ -58,3 +58,4 @@ const pickupAssignmentSchema = new mongoose.Schema({
 pickupAssignmentSchema.index({ status: 1, volunteerId: 1 });
 
 export const PickupAssignment = mongoose.model('PickupAssignment', pickupAssignmentSchema);
+

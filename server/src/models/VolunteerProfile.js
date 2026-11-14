@@ -32,3 +32,4 @@ const volunteerProfileSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export const VolunteerProfile = mongoose.model('VolunteerProfile', volunteerProfileSchema);
+
